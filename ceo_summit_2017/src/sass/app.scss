@@ -1,0 +1,472 @@
+@import "../vendor/normalize";
+@import "../vendor/md-font";
+
+// ********** Variables **********
+
+// Colors
+
+$black: #222;
+$darkPurple: #2C2B31;
+$lightPurple: #9FA5FF;
+$magenta: #EC028C;
+$orange: #FF8C00;
+$purple: #575DA9;
+$white: rgba(255,255,255,.9);
+$whiteText: rgba(255,255,255,.5);
+$yellow: #FDB813;
+
+// Layout
+
+$containerRightWidth: 350px;
+$footerHeight: 45px;
+$mediumPurple: #3B3C68;
+$paddingBase: 7px;
+$tabNavHeight: 35px;
+$tabContentHeaderHeight: 45px;
+$tabContentFooterHeight: 45px;
+
+// ********** Global Styles **********
+
+// HTML
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+// Body
+
+body {
+  color: $whiteText;
+  font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 1.5em;
+}
+
+// Input
+
+input {
+  background: rgba(0,0,0,.4);
+  border: none;
+  color: $whiteText;
+  font-size: 1em;
+  padding: $paddingBase;
+
+  &:active, &:focus {
+    background: rgba(255,255,255,.05);
+  }
+}
+
+// ********** Helpers **********
+
+.m-0 {
+  margin: 0;
+}
+
+.p-0 {
+  padding: 0;
+}
+
+.p-base {
+  padding: $paddingBase;
+}
+
+.plr-base {
+  padding-left: $paddingBase;
+  padding-right: $paddingBase;
+}
+
+.ptb-base {
+  padding-bottom: $paddingBase;
+  padding-top: $paddingBase;
+}
+
+.ptb-base-2 {
+  padding-bottom: $paddingBase * 2;
+  padding-top: $paddingBase * 2;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+// ********** Containers **********
+
+.analytics-view {
+  background-color: $darkPurple;
+  overflow: hidden;
+
+  .container {
+    &, .container-top, .container-left, .container-right, .top, .bottom{
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 0; right: 0;
+    }
+
+    .top { height: 66%; }
+    .bottom { top: 33%; }
+
+    .container-left {
+      top: 45px;
+      width: 50%;
+    }
+
+    .container-right {
+      left: 50%;
+      top: 45px;
+
+      .bottom {
+      }
+      .top {
+
+      }
+    }
+
+    .container-top {
+      height: 45px;
+    }
+  }
+
+}
+
+.attendee-view {
+  background-color: $darkPurple;
+  overflow: hidden;
+
+  .container {
+    &, .container-left, .container-right, .bottom {
+      position: absolute;
+      top: 0; bottom: 0;
+      left: 0; right: 0;
+    }
+
+    .container-left {
+      border-right: 3px solid $black;
+      bottom: 45px;
+      width: calc(100% - #{$containerRightWidth});
+
+      .bottom {
+        bottom: -45px;
+        height: 45px;
+        text-align: right;
+        top: auto;
+      }
+    }
+
+    .container-right {
+      left: calc(100% - #{$containerRightWidth});
+    }
+  }
+}
+
+.index-view {
+  background-color: $darkPurple;
+
+  .links {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
+    width: 200px;
+  }
+}
+
+// ********** Components **********
+
+// Button
+
+.button {
+  background: transparent;
+  border: 1px solid $whiteText;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  outline: none;
+  padding: $paddingBase;
+  text-decoration: none;
+
+  &.button-block {
+    display: block;
+    margin-top: $paddingBase;
+    width: 100%;
+  }
+
+  &:hover {
+    background: rgba(255,255,255,.1);
+  }
+
+  &:active {
+    background: rgba(255,255,255,.3);
+    outline: none;
+  }
+
+  &.button-purple {
+    background: $lightPurple;
+    border-color: $lightPurple;
+    color: $black;
+
+    &:hover {
+      background: lighten($lightPurple, 3);
+    }
+
+    &:active {
+      background: lighten($lightPurple, 7);
+    }
+  }
+}
+
+// Comment
+
+.comment {
+  td {
+    padding: $paddingBase;
+    vertical-align: top;
+  }
+
+  .comment-avatar {
+    height: 35px;
+    width: 35px;
+    border-radius: 35px;
+  }
+
+  .comment-comment {
+    color: $whiteText;
+    margin: 0;
+  }
+
+  .comment-name {
+    color: $white;
+    margin: 0;
+  }
+
+  .comment-time {
+    color: $white;
+  }
+}
+
+// Emoji Select
+
+ul.emoji-select {
+  list-style-type: none;
+  margin: 0;
+  padding: $paddingBase;
+  text-align: right;
+
+  li.emoji-select-option {
+    color: $whiteText;
+    cursor: pointer;
+    display: inline-block;
+    padding: 0 $paddingBase;
+
+    img {
+      height: 30px;
+      width: 30px;
+    }
+
+    &:hover {
+      transform: scale(1.15);
+    }
+
+    &:active {
+      transform: scale(.85);
+    }
+  }
+}
+
+// Hoverable
+
+.hoverable {
+  cursor: pointer;
+
+  &.hoverable-purple:hover {
+    color: $lightPurple;
+  }
+
+  &.hoverable-white:hover {
+    color: $white;
+  }
+}
+
+// Input with icon
+
+.input-with-icon {
+  display: inline-block;
+  position: relative;
+
+  input {
+    width: 100%;
+  }
+
+  // TODO: Make programatic
+  input + i {
+    left: calc(100% - 30px);
+    position: absolute;
+    top: 5px;
+  }
+}
+
+// Search Transcript
+
+.search-transcript {
+
+  i {
+    color: $whiteText;
+    font-size: 1.5em;
+    margin: 1px 7px;
+  }
+
+  .input-with-icon {
+    margin-right: 5px;
+    width: calc(#{$containerRightWidth - $paddingBase * 2} * .75);
+  }
+}
+
+// Selection Group
+
+ul.selection-group {
+  list-style-type: none;
+  margin: 0;
+  padding: $paddingBase 0;
+
+  li {
+    cursor: pointer;
+    padding: $paddingBase * 2 $paddingBase;
+
+    &:hover, &.active {
+      background: $mediumPurple;
+    }
+  }
+}
+
+// Tab Container
+
+.tab-container {
+  height: 100%;
+  position: relative;
+
+  .tab-content {
+    bottom: 0;
+    top: $tabNavHeight;
+    position: absolute;
+    width: 100%;
+
+    .tab-content-header {
+      height: $tabContentHeaderHeight;
+      padding: $paddingBase;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+    .tab-content-content {
+      bottom: $tabContentFooterHeight;
+      overflow: auto;
+      position: absolute;
+      top: $tabContentHeaderHeight;
+    }
+    .tab-content-footer {
+      bottom: 0;
+      height: $tabContentFooterHeight;
+      position: absolute;
+      width: 100%;
+    }
+  }
+
+  ul.tab-nav {
+    height: $tabNavHeight;
+    list-style-type: none;
+    margin: 0;
+    padding: $paddingBase;
+    position: absolute;
+    text-align: right;
+    width: 100%;
+
+    li.tab-link {
+      color: $whiteText;
+      display: inline-block;
+      font-size: 1.5em;
+      padding: 0 10px;
+
+      &.active {
+        color: $lightPurple;
+      }
+    }
+  }
+}
+
+// Tab Slide Up
+
+.tab-slide-up {
+  background: $black;
+  bottom: -350px;
+  height: 350px;
+  left: $paddingBase;
+  padding: 0 $paddingBase;
+  position: absolute;
+  transition: all 333ms ease;
+  width: $containerRightWidth - (2 * $paddingBase);
+
+  &.active {
+    bottom: $tabContentFooterHeight;
+  }
+}
+
+// Transcription Footer
+
+.transcription-footer {
+  background: $darkPurple;
+  color: $whiteText;
+  font-size: .75em;
+  height: 100%;
+  width: 100%;
+
+  td {
+    text-align: center;
+    width: 50%;
+  }
+}
+
+// Transcribed Text
+
+.transcribed-text {
+  td {
+    padding: $paddingBase;
+    vertical-align: top;
+  }
+
+  .transcribed-text-text {
+    color: $whiteText;
+    margin: 0;
+    text-align: left;
+  }
+
+  .transcribed-text-time {
+    color: $white;
+  }
+}
+
+// Visualization
+
+.visualization {
+  .axis {
+    stroke: $whiteText;
+
+    .domain, .tick > * {
+      stroke: $whiteText;
+    }
+  }
+}
