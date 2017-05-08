@@ -443,6 +443,18 @@ ul.selection-group {
 // Transcribed Text
 
 .transcribed-text {
+  -webkit-transition: opacity 333ms ease-in;
+  -moz-transition: opacity 333ms ease-in;
+  -ms-transition: opacity 333ms ease-in;
+  -o-transition: opacity 333ms ease-in;
+  transition: opacity 333ms ease-in;
+
+  opacity: 0;
+
+  &.visible {
+    opacity: 1;
+  }
+
   td {
     padding: $paddingBase;
     vertical-align: top;
@@ -452,10 +464,12 @@ ul.selection-group {
     color: $whiteText;
     margin: 0;
     text-align: left;
+    width: 100%;
   }
 
   .transcribed-text-time {
     color: $white;
+    text-align: right;
   }
 }
 

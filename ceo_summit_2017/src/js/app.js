@@ -8,6 +8,7 @@ import TranscribedText from "../templates/transcribed_text.handlebars"
 class Attendee {
   constructor() {
     this.DOM = {
+      iframeVideo: $('#iframe_video'),
       languageSelect: {
         confirm: $('#language_select_confirm'),
         search: $('#language_selection_search'),
@@ -16,6 +17,8 @@ class Attendee {
       },
       transcriptionTimeline: $('#transcription_timeline')
     };
+
+    this.inIframe = false;
 
     this.languages = {
       options: [
@@ -37,6 +40,19 @@ class Attendee {
       target: $('#language_select')
     };
 
+    this.timer = {
+      _self: null,
+      active: false,
+      rate: 16,
+      report: 0,
+      time: 0
+    };
+
+    this.transcript = {
+      index: 0,
+      inventory: []
+    };
+
     this.TRANSITION = 333;
   }
 
@@ -47,7 +63,6 @@ class Attendee {
       .selectionGroup
       .find('.active')
       .text();
-
     this.renderTranscriptionText();
 
     return this;
@@ -105,6 +120,19 @@ class Attendee {
       this.handleToggleSlideUp();
     });
 
+    $(window).on('blur', () => {
+      if (this.inIframe) {
+        if (this.timer.active) { this.stopTimeSync(); }
+        else { this.startTimeSync(); }
+      }
+    });
+
+    this.DOM.iframeVideo
+      .on('load', (e) => { this.startTimeSync(); })
+      .on('mouseover', () => { this.inIframe = true; })
+      .on('mouseout', () => { this.inIframe = false; });
+
+    this.setTranscriptInventory();
     this.renderLanguageSelectionGroup();
     this.renderTranscriptionText();
   }
@@ -128,7 +156,9 @@ class Attendee {
     this.DOM.transcriptionTimeline.empty();
 
     let texts = transcriptionLanguages[language.toLowerCase()];
-    for (let text of texts) {
+
+    for (let i = 0; i <= this.transcript.index - 1; ++i) {
+      let text = texts[i];
       if (text.text.length > 0) {
         let textNode = TranscribedText({
           text: text.text,
@@ -142,8 +172,64 @@ class Attendee {
           timeString: text.start
         });*/
 
-        this.DOM.transcriptionTimeline.append(textNode);
+        let $t = $(textNode).addClass('visible');
+        this.DOM.transcriptionTimeline.append($t);
       }
+    }
+  }
+
+  setTranscriptInventory(language=this.languages.selected) {
+    let texts = transcriptionLanguages[language.toLowerCase()];
+    this.transcript.inventory = texts.map((text) => {
+      return text.start.split('.')[0];
+    });
+  }
+
+  startTimeSync() {
+    clearInterval(this.timer._self);
+    this.timer._self = setInterval(() => {
+      $(window).focus();
+      this.timer.time += this.timer.rate;
+      if (this.timer.report === 60) {
+        this.syncTranscript();
+        this.timer.report = 0;
+      }
+      this.timer.report++;
+    }, this.timer.rate);
+    this.timer.active = true;
+  }
+
+  stopTimeSync() {
+    clearInterval(this.timer._self);
+    this.timer.active = false;
+    this.timer._self = setInterval(() => {
+      $(window).focus();
+    }, this.timer.rate);
+  }
+
+  syncTranscript() {
+    let target = this.transcript.inventory[this.transcript.index];
+    let millisecondMark = 0;
+    let [, minutes, seconds] = target.split(':');
+    minutes = parseInt(minutes);
+    seconds = parseInt(seconds);
+
+    if (minutes > 0) { seconds += (60 * minutes); }
+
+    millisecondMark = seconds * 1000;
+
+    if (millisecondMark <= this.timer.time) {
+      let text = transcriptionLanguages[this.languages.selected.toLowerCase()][this.transcript.index];
+
+      let textNode = TranscribedText({
+        text: text.text,
+        timeString: text.start.split('.')[0]
+      });
+      let $t = $(textNode);
+
+      this.DOM.transcriptionTimeline.append($t);
+      setTimeout(() => { $t.addClass('visible'); }, 100);
+      this.transcript.index++;
     }
   }
 }

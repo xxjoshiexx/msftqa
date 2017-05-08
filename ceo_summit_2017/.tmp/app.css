@@ -5811,17 +5811,23 @@ ul.selection-group {
     text-align: center;
     width: 50%; }
 
-.transcribed-text td {
-  padding: 7px;
-  vertical-align: top; }
-
-.transcribed-text .transcribed-text-text {
-  color: rgba(255, 255, 255, 0.5);
-  margin: 0;
-  text-align: left; }
-
-.transcribed-text .transcribed-text-time {
-  color: rgba(255, 255, 255, 0.9); }
+.transcribed-text {
+  -webkit-transition: opacity 333ms ease-in;
+  transition: opacity 333ms ease-in;
+  opacity: 0; }
+  .transcribed-text.visible {
+    opacity: 1; }
+  .transcribed-text td {
+    padding: 7px;
+    vertical-align: top; }
+  .transcribed-text .transcribed-text-text {
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0;
+    text-align: left;
+    width: 100%; }
+  .transcribed-text .transcribed-text-time {
+    color: rgba(255, 255, 255, 0.9);
+    text-align: right; }
 
 .visualization .axis {
   stroke: rgba(255, 255, 255, 0.5); }
