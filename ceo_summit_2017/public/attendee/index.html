@@ -11,64 +11,67 @@
   <body class="attendee-view">
     <div class="container">
       <div class="container-left" id="content_left">
-        <iframe id="iframe_video" width="100%" height="100%" src="https://web.microsoftstream.com/embed/video/8836b35f-7213-4b57-acaf-896132dff520?autoplay=true" frameborder="0" allowfullscreen></iframe>
+        <iframe id="iframe_video" width="100%" height="100%" src="https://web.microsoftstream.com/embed/video/521344bc-ca31-4b97-8527-976e9f2bbe58?autoplay=true" frameborder="0" allowfullscreen></iframe>
         <div class="bottom">
           <ul class="emoji-select">
             <li class="emoji-select-option"><img src="../images/thumbs_up.png" /></li>
             <li class="emoji-select-option"><img src="../images/thumbs_down.png" /></li>
             <li class="emoji-select-option"><img src="../images/applause.png" /></li>
             <li class="emoji-select-option"><img src="../images/sad.png" /></li>
-            <li class="emoji-select-option"><img src="../images/love.png" /></li>
+            <li class="emoji-select-option"><img src="../images/happy.png" /></li>
           </ul>
         </div>
       </div>
       <div class="container-right">
         <div class="tab-container" id="tabs">
           <ul class="tab-nav">
-            <li class="tab-link">
+            <li class="tab-link" data-tab="yammer_comments">
               <i class="zmdi zmdi-yahoo hoverable hoverable-purple"></i>
             </li>
-            <li class="tab-link active">
+            <li class="tab-link active" data-tab="transcription_timeline">
               <i class="zmdi zmdi-translate hoverable hoverable-purple"></i>
             </li>
             <li class="tab-link">
               <i class="zmdi zmdi-comment-video hoverable hoverable-purple"></i>
             </li>
           </ul>
-          <div class="tab-content" id="content_right">
-            <div class="tab-content-header">
-              <div class="search-transcript">
-                <div class="input-with-icon">
-                  <input type="text" placeholder="Search transcript" />
-                  <i class="input-icon zmdi zmdi-search"></i>
+          <div class="tab-content">
+            <div class="tab-content-container" id="yammer_comments">
+              <div class="tab-content-content"></div>
+            </div>
+            <div class="tab-content-container active" id="transcription_timeline">
+              <div class="tab-content-header">
+                <div class="search-transcript">
+                  <div class="input-with-icon">
+                    <input type="text" placeholder="Search transcript" />
+                    <i class="input-icon zmdi zmdi-search"></i>
+                  </div>
+                  <i class="zmdi zmdi-close hoverable hoverable-white"></i>
+                  <i class="zmdi zmdi-filter-list hoverable hoverable-white"></i>
                 </div>
-                <i class="zmdi zmdi-close hoverable hoverable-white"></i>
-                <i class="zmdi zmdi-filter-list hoverable hoverable-white"></i>
               </div>
-            </div>
-
-            <div class="tab-content-content" id="transcription_timeline"></div>
-
-            <div class="tab-slide-up plr-base" id="language_select">
-              <h4 class="m-0 ptb-base-2">Languages</h4>
-              <input class="w-100" id="language_selection_search" placeholder="Search languages" type="text"/>
-              <div style="height: 200px; overflow: auto;">
-                <ul class="selection-group" id="language_selection_group"></ul>
+              <div class="tab-content-content"></div>
+              <div class="tab-slide-up plr-base" id="language_select">
+                <h4 class="m-0 ptb-base-2">Languages</h4>
+                <input class="w-100" id="language_selection_search" placeholder="Search languages" type="text"/>
+                <div style="height: 200px; overflow: auto;">
+                  <ul class="selection-group" id="language_selection_group"></ul>
+                </div>
+                <button class="button button-block language-select-trigger">Cancel</button>
+                <button class="button button-block button-purple" id="language_select_confirm">Change Language</button>
               </div>
-              <button class="button button-block language-select-trigger">Cancel</button>
-              <button class="button button-block button-purple" id="language_select_confirm">Change Language</button>
-            </div>
 
-            <div class="tab-content-footer">
-              <table class="transcription-footer">
-                <tr>
-                  <td class="footer-left hoverable hoverable-white">
-                    Download
-                  </td>
-                  <td class="footer-right hoverable hoverable-white language-select-trigger">
-                    Change Language
-                  </td>
-                </tr>
+              <div class="tab-content-footer">
+                <table class="transcription-footer">
+                  <tr>
+                    <td class="footer-left hoverable hoverable-white">
+                      Download
+                    </td>
+                    <td class="footer-right hoverable hoverable-white language-select-trigger">
+                      Change Language
+                    </td>
+                  </tr>
+                </div>
               </div>
             </div>
             <!-- End Transcription Tab -->

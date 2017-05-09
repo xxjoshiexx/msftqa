@@ -1,0 +1,11 @@
+<div class="speaker-container">
+  <div class="speaker-avatar">
+    <img src="{{avatarSrc}}" />
+  </div>
+  <div class="speaker-name">{{name}}</div>
+  <div class="speaker-timeline">
+    {{#each blocks}}
+      <div class="speaker-block" style="left:{{start}}px; width:{{duration}}px"></div>
+    {{/each}}
+  </div>
+</div>

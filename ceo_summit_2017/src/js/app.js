@@ -1,9 +1,10 @@
-import "babel-polyfill";
-import $ from "jquery";
-import * as d3 from "d3";
+import 'babel-polyfill';
+import $ from 'jquery';
+//import * as d3 from 'd3';
 
-import Comment from "../templates/comment.handlebars"
-import TranscribedText from "../templates/transcribed_text.handlebars"
+import Comment from '../templates/comment.handlebars';
+import Speaker from '../templates/speaker.handlebars';
+import TranscribedText from '../templates/transcribed_text.handlebars';
 
 class Attendee {
   constructor() {
@@ -13,9 +14,17 @@ class Attendee {
         confirm: $('#language_select_confirm'),
         search: $('#language_selection_search'),
         selectionGroup: $('#language_selection_group'),
-        trigger: $('.language-select-trigger')
+        trigger: $('.language-select-trigger'),
       },
-      transcriptionTimeline: $('#transcription_timeline')
+      tabLink: $('.tab-link'),
+      transcriptionTimeline: {
+        _self: $('#transcription_timeline'),
+        content: $('#transcription_timeline .tab-content-content')
+      },
+      yammerComments: {
+        _self: $('#yammer_comments'),
+        content: $('#yammer_comments .tab-content-content')
+      }
     };
 
     this.inIframe = false;
@@ -120,6 +129,16 @@ class Attendee {
       this.handleToggleSlideUp();
     });
 
+    this.DOM.tabLink.click((e) => {
+      let $target = $(e.delegateTarget);
+
+      $('.tab-link.active').removeClass('active');
+      $('.tab-content-container.active').removeClass('active');
+
+      $target.addClass('active');
+      $(`#${$target.data().tab}`).addClass('active');
+    });
+
     $(window).on('blur', () => {
       if (this.inIframe) {
         if (this.timer.active) { this.stopTimeSync(); }
@@ -135,6 +154,7 @@ class Attendee {
     this.setTranscriptInventory();
     this.renderLanguageSelectionGroup();
     this.renderTranscriptionText();
+    this.renderYammerComments();
   }
 
   renderLanguageSelectionGroup(options=this.languages.options) {
@@ -145,7 +165,7 @@ class Attendee {
         'active' :
         '';
       this.DOM.languageSelect.selectionGroup
-        .append(`<li class="${activeClass}">${option}</li>`);
+        .append(`<li class='${activeClass}'>${option}</li>`);
     }
 
     this.DOM.languageSelect.selectionGroup.find('li')
@@ -153,7 +173,7 @@ class Attendee {
   }
 
   renderTranscriptionText(language=this.languages.selected) {
-    this.DOM.transcriptionTimeline.empty();
+    this.DOM.transcriptionTimeline.content.empty();
 
     let texts = transcriptionLanguages[language.toLowerCase()];
 
@@ -165,16 +185,22 @@ class Attendee {
           timeString: text.start.split('.')[0]
         });
 
-        /*let textNode = Comment({
-          avatarSrc: 'https://randomuser.me/api/portraits/women/25.jpg',
-          name: 'Satya Nadella',
-          comment: text.text,
-          timeString: text.start
-        });*/
-
         let $t = $(textNode).addClass('visible');
-        this.DOM.transcriptionTimeline.append($t);
+        this.DOM.transcriptionTimeline.content.append($t);
       }
+    }
+  }
+
+  renderYammerComments() {
+    let comment = Comment({
+      avatarSrc: 'https://randomuser.me/api/portraits/men/5.jpg',
+      name: 'Guy Userman',
+      comment: 'Bacon ipsum dolor amet pancetta alcatra capicola brisket pork salami meatloaf hamburger pastrami flank kevin prosciutto andouille landjaeger cow. Chuck leberkas ham tail shank tongue.',
+      timeString: '12:34'
+    });
+
+    for (let i = 0; i < 25; ++i) {
+      this.DOM.yammerComments.content.append(comment);
     }
   }
 
@@ -227,8 +253,11 @@ class Attendee {
       });
       let $t = $(textNode);
 
-      this.DOM.transcriptionTimeline.append($t);
-      setTimeout(() => { $t.addClass('visible'); }, 100);
+      this.DOM.transcriptionTimeline.content.append($t);
+      setTimeout(() => {
+        $t.addClass('visible');
+        this.DOM.transcriptionTimeline.content[0].scrollTop = this.DOM.transcriptionTimeline.content[0].scrollHeight;
+      }, 100);
       this.transcript.index++;
     }
   }
@@ -239,104 +268,181 @@ class Analytic {
 
   init() {
     this.renderLineGraph();
+    this.renderTimeline();
   }
 
   renderLineGraph() {
-    let margin = {top: 20, right: 20, bottom: 30, left: 50};
-    let width = $('.container-right').innerWidth() - margin.left - margin.right
-    let height = $('.container-right > .top').innerHeight() - margin.top - margin.bottom;
-
-    let parseTime = d3.timeParse('%H:%M:%S');
-
-    let x = d3.scaleTime().range([0, width]);
-    let y = d3.scaleLinear().range([height, 0]);
-
-    let svg = d3.select('#viz_engagement')
-      .attr('class', 'visualization')
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
-    .append('g')
-      .attr('transform',
-        'translate(' + margin.left + ',' + margin.top + ')');
-
-    // [Time, angry, applause, dislike, like, love]
+    // [angry, applause, dislike, like, happy]
     let dataFactory = () => {
       let seconds = -1;
       let minutes = 0;
       let f = (t) => { return t < 10 ? `0${t}` : t; };
       let r = (max) => { return ~~(Math.random() * max)};
       let lastStep = [0,0,0,0,0];
-      let factor = 5;
+      let factor = 30;
+      let base = 1000;
       let generateStep = () => {
-        let newStep = lastStep.map((value) => {
-          let halfEnvelope = (1/factor)/2;
-          let max = Math.min(1, value + halfEnvelope);
+        let newStep = lastStep.map((value, i) => {
+          let halfEnvelope = base * ((1/factor)/2);
+          let max = Math.min(1 * base, value + halfEnvelope);
           let min = Math.max(0, value - halfEnvelope);
-          return Math.random()*(max-min)+min;
+
+          return (i === 0 || i === 2) ?
+            (Math.random() > .85) ?
+              0 :
+              (Math.random()*(max-min)+min) :
+            (Math.random() > .85) ?
+              0 :
+              (Math.random()*(max-min)+min);
         });
         lastStep = newStep;
         return newStep;
       };
 
-      return Array.apply(null, Array(200)).map(() => {
+      let returnData = [
+        ['x'],
+        ['angry'],
+        ['applause'],
+        ['dislike'],
+        ['happy'],
+        ['like']
+      ];
+
+      for (let i = 0; i < 91; ++i) {
         seconds++;
         if (seconds > 59) { minutes++; seconds = 0; }
 
-        return [`12:${f(minutes)}:${f(seconds)}`, ...generateStep()];
-      });
-    };
-    let data = dataFactory();
-
-    x.domain(d3.extent(data, function(d) { return parseTime(d[0]); }));
-    y.domain([0, d3.max(data, function(d) {
-      return Math.max(0, 1); })]);
-
-    let colors = [
-      null,
-      '#575DA9',
-      '#EC028C',
-      '#FF8C00',
-      '#FDB813',
-      '#b9fd75'
-    ];
-    for (let i = 1; i < 6; ++i) {
-      let line = d3.line()
-        .x(function(d) { return x(parseTime(d[0])); })
-        .y(function(d) { return y(d[i]); });
-
-      svg
-        .append('path')
-        .data([data])
-        .attr('class', 'line')
-        .style('fill', 'none')
-        .style('stroke', colors[i])
-        .style('stroke-width', 3)
-        .attr('d', line)
-        .on('mouseover', function(d) {
-          d3.select(this)
-            .transition()
-            .style('stroke-width', 6);
-        })
-        .on('mouseout', function(d) {
-          d3.select(this)
-            .transition()
-            .style('stroke-width', 3);
+        generateStep().forEach((data, index) => {
+          returnData[index+1].push(data);
         });
+      }
+
+      let secondStep = 10;
+      seconds = -10;
+      minutes = 0;
+      for (let i = 0; i < 91; ++i) {
+        seconds += secondStep;
+        if (seconds > 59) { minutes++; seconds = 0; }
+        let m = minutes < 10 ? `0${minutes}` : minutes;
+        let s = seconds < 10 ? `0${seconds}` : seconds;
+        returnData[0].push(`${m}:${s}`);
+      }
+
+      return returnData;
+    };
+
+    let height = $('.container-right .top').innerHeight();
+    let data = dataFactory();
+    let chart = c3.generate({
+      axis: {
+        x: {
+          tick: {
+            count: 10
+          },
+          type: 'category'
+        }
+      },
+      bindto: '#viz_engagement',
+      data: {
+        colors: {
+          angry: '#575DA9',
+          applause: '#EC028C',
+          dislike: '#FF8C00',
+          happy: '#b9fd75',
+          like: '#FDB813'
+        },
+        columns: data,
+        groups: [['angry', 'applause', 'dislike', 'happy', 'like']],
+        type: 'bar',
+        x: 'x'
+      },
+      onmouseout: () => {
+        $(window).off('mousemove');
+        $('#timeline_scrubber').removeClass('active');
+      },
+      onmouseover: () => {
+        let leftOffset = $('#viz_engagement').offset().left;
+        $(window).on('mousemove', (e) => {
+          let left = (e.offsetX < 50) ? 50 : e.offsetX;
+          $('#timeline_scrubber').css('left', left);
+          $('#timeline_scrubber').toggleClass('active', $('.c3-tooltip-container').is(':visible'));
+        });
+      },
+      padding: {
+        left: 50
+      },
+      size: {
+        height: height
+      },
+      tooltip: {
+        format: {
+          name: (name, ratio, id, i) => {
+            return name;
+          },
+          title: (x) => {
+            return `Sentiment at ${data[0][x]}`
+          },
+          value: (value, ratio, id, i) => {
+            return value.toFixed(0);
+          }
+        }
+      }
+    });
+
+    $(window).on('resize', () => {
+      let height = $('.container-right .top').innerHeight();
+      chart.resize({height});
+    });
+  }
+
+  renderTimeline() {
+    let width = $('.container-right .top').innerWidth() - 50;
+
+    let speakers = [
+      {
+        avatarSrc: '../images/satya.png',
+        blocks: [
+          {
+            duration: width * .66,
+            start: 0
+          },
+          {
+            duration: width * .1,
+            start: width * .9
+          }
+        ],
+        name: 'Satya Nadella'
+      },
+      {
+        avatarSrc: '../images/amy.png',
+        blocks: [
+          {
+            duration: width * .14,
+            start: width * .66
+          }
+        ],
+        name: 'Amy Hood'
+      },
+      {
+        avatarSrc: '../images/chris.png',
+        blocks: [
+          {
+            duration: width * .1,
+            start: width * .8
+          }
+        ],
+        name: 'Chris Capossela'
+      }
+    ];
+
+    for (let speaker of speakers) {
+      $('#viz_speakers').append(Speaker(speaker));
     }
 
-    // Add the X Axis
-    svg
-      .append('g')
-      .attr('transform', 'translate(0,' + height + ')')
-      .attr('class', 'axis')
-      .call(d3.axisBottom(x));
+    $('#viz_speakers').append('<div id="timeline_scrubber"></div>')
 
-    // Add the Y Axis
-    svg
-      .append('g')
-      .attr('class', 'axis')
-      .call(d3.axisLeft(y));
   }
+
 }
 
 $(document).ready(() => {

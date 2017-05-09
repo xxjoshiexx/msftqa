@@ -372,6 +372,150 @@ template {
 [hidden] {
   display: none; }
 
+.c3 svg {
+  font: 10px sans-serif;
+  -webkit-tap-highlight-color: transparent; }
+
+.c3 line, .c3 path {
+  fill: none;
+  stroke: #000; }
+
+.c3 text {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+      user-select: none; }
+
+.c3-bars path, .c3-event-rect, .c3-legend-item-tile, .c3-xgrid-focus, .c3-ygrid {
+  shape-rendering: crispEdges; }
+
+.c3-chart-arc path {
+  stroke: #fff; }
+
+.c3-chart-arc text {
+  fill: #fff;
+  font-size: 13px; }
+
+.c3-grid line {
+  stroke: #aaa; }
+
+.c3-grid text {
+  fill: #aaa; }
+
+.c3-xgrid, .c3-ygrid {
+  stroke-dasharray: 3 3; }
+
+.c3-text.c3-empty {
+  fill: gray;
+  font-size: 2em; }
+
+.c3-line {
+  stroke-width: 1px; }
+
+.c3-circle._expanded_ {
+  stroke-width: 1px;
+  stroke: #fff; }
+
+.c3-selected-circle {
+  fill: #fff;
+  stroke-width: 2px; }
+
+.c3-bar {
+  stroke-width: 0; }
+
+.c3-bar._expanded_ {
+  fill-opacity: .75; }
+
+.c3-target.c3-focused {
+  opacity: 1; }
+
+.c3-target.c3-focused path.c3-line, .c3-target.c3-focused path.c3-step {
+  stroke-width: 2px; }
+
+.c3-target.c3-defocused {
+  opacity: 0.3 !important; }
+
+.c3-region {
+  fill: #4682b4;
+  fill-opacity: .1; }
+
+.c3-brush .extent {
+  fill-opacity: .1; }
+
+.c3-legend-item {
+  font-size: 12px; }
+
+.c3-legend-item-hidden {
+  opacity: .15; }
+
+.c3-legend-background {
+  opacity: .75;
+  fill: #fff;
+  stroke: #d3d3d3;
+  stroke-width: 1; }
+
+.c3-title {
+  font: 14px sans-serif; }
+
+.c3-tooltip-container {
+  z-index: 10; }
+
+.c3-tooltip {
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: #fff;
+  empty-cells: show;
+  -webkit-box-shadow: 7px 7px 12px -9px #777;
+  box-shadow: 7px 7px 12px -9px #777;
+  opacity: .9; }
+
+.c3-tooltip tr {
+  border: 1px solid #CCC; }
+
+.c3-tooltip th {
+  background-color: #aaa;
+  font-size: 14px;
+  padding: 2px 5px;
+  text-align: left;
+  color: #FFF; }
+
+.c3-tooltip td {
+  font-size: 13px;
+  padding: 3px 6px;
+  background-color: #fff;
+  border-left: 1px dotted #999; }
+
+.c3-tooltip td > span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 6px; }
+
+.c3-tooltip td.value {
+  text-align: right; }
+
+.c3-area {
+  stroke-width: 0;
+  opacity: .2; }
+
+.c3-chart-arcs-title {
+  dominant-baseline: middle;
+  font-size: 1.3em; }
+
+.c3-chart-arcs .c3-chart-arcs-background {
+  fill: #e0e0e0;
+  stroke: none; }
+
+.c3-chart-arcs .c3-chart-arcs-gauge-unit {
+  fill: #000;
+  font-size: 16px; }
+
+.c3-chart-arcs .c3-chart-arcs-gauge-max, .c3-chart-arcs .c3-chart-arcs-gauge-min {
+  fill: #777; }
+
+.c3-chart-arc .c3-gauge-value {
+  fill: #000; }
+
 /*!
  *  Material Design Iconic Font by Sergey Kupletsky (@zavoloklom) - http://zavoloklom.github.io/material-design-iconic-font/
  *  License - http://zavoloklom.github.io/material-design-iconic-font/license (Font: SIL OFL 1.1, CSS: MIT License)
@@ -5596,9 +5740,9 @@ input {
     left: 0;
     right: 0; }
   .analytics-view .container .top {
-    height: 66%; }
+    height: 60%; }
   .analytics-view .container .bottom {
-    top: 33%; }
+    top: 60%; }
   .analytics-view .container .container-left {
     top: 45px;
     width: 50%; }
@@ -5667,6 +5811,80 @@ input {
       background: #aeb3ff; }
     .button.button-purple:active {
       background: #c3c6ff; }
+
+.c3 .c3-axis {
+  stroke: rgba(255, 255, 255, 0.5); }
+
+.c3 .c3-legend-item text {
+  fill: rgba(255, 255, 255, 0.5); }
+
+.c3 .c3-tooltip {
+  background: none;
+  border: none;
+  -webkit-box-shadow: 3px 3px 12px 0 rgba(0, 0, 0, 0.2);
+          box-shadow: 3px 3px 12px 0 rgba(0, 0, 0, 0.2); }
+  .c3 .c3-tooltip tr {
+    border: 1px solid rgba(255, 255, 255, 0.1); }
+    .c3 .c3-tooltip tr[class^="c3-tooltip-name"] td.name span {
+      margin-right: 20px; }
+    .c3 .c3-tooltip tr.c3-tooltip-name--angry td.name span:after {
+      background: transparent url("../images/sad.png") no-repeat;
+      background-size: contain;
+      content: "";
+      display: inline-block;
+      height: 10px;
+      margin-left: 12px;
+      margin-top: -2px;
+      width: 10px; }
+    .c3 .c3-tooltip tr.c3-tooltip-name--applause td.name span:after {
+      background: transparent url("../images/applause.png") no-repeat;
+      background-size: contain;
+      content: "";
+      display: inline-block;
+      height: 10px;
+      margin-left: 12px;
+      margin-top: -2px;
+      width: 10px; }
+    .c3 .c3-tooltip tr.c3-tooltip-name--dislike td.name span:after {
+      background: transparent url("../images/thumbs_down.png") no-repeat;
+      background-size: contain;
+      content: "";
+      display: inline-block;
+      height: 10px;
+      margin-left: 12px;
+      margin-top: -2px;
+      width: 10px; }
+    .c3 .c3-tooltip tr.c3-tooltip-name--happy td.name span:after {
+      background: transparent url("../images/happy.png") no-repeat;
+      background-size: contain;
+      content: "";
+      display: inline-block;
+      height: 10px;
+      margin-left: 12px;
+      margin-top: -2px;
+      width: 10px; }
+    .c3 .c3-tooltip tr.c3-tooltip-name--like td.name span:after {
+      background: transparent url("../images/thumbs_up.png") no-repeat;
+      background-size: contain;
+      content: "";
+      display: inline-block;
+      height: 10px;
+      margin-left: 12px;
+      margin-top: -2px;
+      width: 10px; }
+  .c3 .c3-tooltip th {
+    background-color: #222;
+    text-align: right; }
+  .c3 .c3-tooltip td {
+    background-color: #222;
+    border-left: 0;
+    color: rgba(255, 255, 255, 0.9); }
+
+.c3 .tick line {
+  stroke: rgba(255, 255, 255, 0.5); }
+
+.c3 .tick text {
+  fill: rgba(255, 255, 255, 0.5); }
 
 .comment td {
   padding: 7px;
@@ -5751,27 +5969,33 @@ ul.selection-group {
 .tab-container {
   height: 100%;
   position: relative; }
-  .tab-container .tab-content {
+  .tab-container .tab-content-container {
     bottom: 0;
+    display: none;
     top: 35px;
     position: absolute;
     width: 100%; }
-    .tab-container .tab-content .tab-content-header {
+    .tab-container .tab-content-container.active {
+      display: block; }
+    .tab-container .tab-content-container .tab-content-header {
       height: 45px;
       padding: 7px;
       position: absolute;
       top: 0;
       width: 100%; }
-    .tab-container .tab-content .tab-content-content {
+    .tab-container .tab-content-container .tab-content-content {
       bottom: 45px;
       overflow: auto;
       position: absolute;
       top: 45px; }
-    .tab-container .tab-content .tab-content-footer {
+    .tab-container .tab-content-container .tab-content-footer {
       bottom: 0;
       height: 45px;
       position: absolute;
       width: 100%; }
+    .tab-container .tab-content-container#yammer_comments .tab-content-content {
+      bottom: 0;
+      top: 0; }
   .tab-container ul.tab-nav {
     height: 35px;
     list-style-type: none;
@@ -5829,7 +6053,48 @@ ul.selection-group {
     color: rgba(255, 255, 255, 0.9);
     text-align: right; }
 
-.visualization .axis {
-  stroke: rgba(255, 255, 255, 0.5); }
-  .visualization .axis .domain, .visualization .axis .tick > * {
-    stroke: rgba(255, 255, 255, 0.5); }
+#viz_speakers .speaker-container {
+  margin-top: 7px;
+  padding: 7px;
+  position: relative; }
+  #viz_speakers .speaker-container .speaker-avatar img {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 40px;
+    height: 40px;
+    width: 40px; }
+  #viz_speakers .speaker-container .speaker-name {
+    height: 20px;
+    left: 50px;
+    position: absolute;
+    top: 7px; }
+  #viz_speakers .speaker-container .speaker-timeline {
+    height: 20px;
+    left: 50px;
+    position: absolute;
+    top: 27px;
+    width: -webkit-calc(100% - 55px);
+    width: calc(100% - 55px); }
+    #viz_speakers .speaker-container .speaker-timeline:before {
+      background-color: rgba(255, 255, 255, 0.5);
+      content: "";
+      display: block;
+      height: 1px;
+      position: absolute;
+      top: 50%;
+      width: 100%; }
+    #viz_speakers .speaker-container .speaker-timeline .speaker-block {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 30px;
+      height: 20px;
+      position: absolute; }
+
+#viz_speakers #timeline_scrubber {
+  background-color: rgba(255, 255, 255, 0.5);
+  display: none;
+  height: 200px;
+  left: 50px;
+  position: absolute;
+  top: 0;
+  width: 1px; }
+  #viz_speakers #timeline_scrubber.active {
+    display: block; }

@@ -1,4 +1,5 @@
 @import "../vendor/normalize";
+@import "../vendor/c3";
 @import "../vendor/md-font";
 
 // ********** Variables **********
@@ -117,8 +118,8 @@ input {
       left: 0; right: 0;
     }
 
-    .top { height: 66%; }
-    .bottom { top: 33%; }
+    .top { height: 60%; }
+    .bottom { top: 60%; }
 
     .container-left {
       top: 45px;
@@ -227,6 +228,93 @@ input {
     &:active {
       background: lighten($lightPurple, 7);
     }
+  }
+}
+
+// c3 Global
+
+@mixin iconLabel {
+  background-size: contain;
+  content: "";
+  display: inline-block;
+  height: 10px;
+  margin-left: 12px;
+  margin-top: -2px;
+  width: 10px;
+}
+
+.c3 {
+
+  .c3-axis {
+    stroke: $whiteText;
+  }
+
+  .c3-legend-item {
+    text {
+      fill: $whiteText;
+    }
+  }
+
+  .c3-tooltip {
+    background: none;
+    border: none;
+    box-shadow: 3px 3px 12px 0 rgba(0,0,0,.2);
+
+    tr {
+      border: 1px solid rgba(255,255,255,.1);
+
+      &[class^="c3-tooltip-name"] td.name span {
+        margin-right: 20px;
+      }
+
+      &.c3-tooltip-name--angry td.name span:after {
+        background: transparent url('../images/sad.png') no-repeat;
+        @include iconLabel();
+      }
+
+      &.c3-tooltip-name--applause td.name span:after {
+        background: transparent url('../images/applause.png') no-repeat;
+        @include iconLabel();
+      }
+
+      &.c3-tooltip-name--dislike td.name span:after {
+        background: transparent url('../images/thumbs_down.png') no-repeat;
+        @include iconLabel();
+      }
+
+      &.c3-tooltip-name--happy td.name span:after {
+        background: transparent url('../images/happy.png') no-repeat;
+        @include iconLabel();
+      }
+
+      &.c3-tooltip-name--like td.name span:after {
+        background: transparent url('../images/thumbs_up.png') no-repeat;
+        @include iconLabel();
+      }
+    }
+
+    th {
+      background-color: $black;
+      text-align: right;
+    }
+
+    td {
+      background-color: $black;
+      border-left: 0;
+      color: $white;
+    }
+  }
+
+  .tick {
+
+    line {
+      stroke: $whiteText;
+    }
+
+    text {
+      fill: $whiteText;
+    }
+
   }
 }
 
@@ -359,11 +447,16 @@ ul.selection-group {
   height: 100%;
   position: relative;
 
-  .tab-content {
+  .tab-content-container {
     bottom: 0;
+    display: none;
     top: $tabNavHeight;
     position: absolute;
     width: 100%;
+
+    &.active {
+      display: block;
+    }
 
     .tab-content-header {
       height: $tabContentHeaderHeight;
@@ -372,17 +465,26 @@ ul.selection-group {
       top: 0;
       width: 100%;
     }
+
     .tab-content-content {
       bottom: $tabContentFooterHeight;
       overflow: auto;
       position: absolute;
       top: $tabContentHeaderHeight;
     }
+
     .tab-content-footer {
       bottom: 0;
       height: $tabContentFooterHeight;
       position: absolute;
       width: 100%;
+    }
+
+    &#yammer_comments {
+      .tab-content-content {
+        bottom: 0;
+        top: 0;
+      }
     }
   }
 
@@ -475,12 +577,65 @@ ul.selection-group {
 
 // Visualization
 
-.visualization {
-  .axis {
-    stroke: $whiteText;
+#viz_speakers {
+  .speaker-container {
+    margin-top: $paddingBase;
+    padding: $paddingBase;
+    position: relative;
 
-    .domain, .tick > * {
-      stroke: $whiteText;
+    .speaker-avatar {
+      img {
+        border: 2px solid $whiteText;
+        border-radius: 40px;
+        height: 40px;
+        width: 40px;
+      }
+    }
+
+    .speaker-name {
+      height: 20px;
+      left: 50px;
+      position: absolute;
+      top: $paddingBase;
+    }
+
+    .speaker-timeline {
+      height: 20px;
+      left: 50px;
+      position: absolute;
+      top: $paddingBase + 20px;
+      width: calc(100% - 55px);
+
+      &:before {
+        background-color: $whiteText;
+        content: "";
+        display: block;
+        height: 1px;
+        position: absolute;
+        top: 50%;
+        width: 100%;
+      }
+
+      .speaker-block {
+        background: $white;
+        border-radius: 30px;
+        height: 20px;
+        position: absolute;
+      }
+    }
+  }
+
+  #timeline_scrubber {
+    background-color: $whiteText;
+    display: none;
+    height: 200px;
+    left: 50px;
+    position: absolute;
+    top: 0;
+    width: 1px;
+
+    &.active {
+      display: block;
     }
   }
 }
