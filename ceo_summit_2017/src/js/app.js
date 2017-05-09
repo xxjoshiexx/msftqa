@@ -352,8 +352,6 @@ class Analytic {
           love: '#EC028C',
         },
         columns: data,
-        groups: [['angry', 'applause', 'dislike', 'happy', 'love']],
-        type: 'bar',
         x: 'x'
       },
       onmouseout: () => {
@@ -440,7 +438,7 @@ class Analytic {
       $('#viz_speakers').append(Speaker(speaker));
     }
 
-    $('#viz_speakers').append('<div id="timeline_scrubber"></div>')
+    $('#viz_speakers').append('<div id="timeline_scrubber"></div>');
 
   }
 
