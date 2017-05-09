@@ -5746,6 +5746,8 @@ input {
   .analytics-view .container .container-left {
     top: 45px;
     width: 50%; }
+    .analytics-view .container .container-left .top {
+      padding: 7px; }
   .analytics-view .container .container-right {
     left: 50%;
     top: 45px; }
@@ -6072,8 +6074,8 @@ ul.selection-group {
     left: 50px;
     position: absolute;
     top: 27px;
-    width: -webkit-calc(100% - 55px);
-    width: calc(100% - 55px); }
+    width: -webkit-calc(100% - 75px);
+    width: calc(100% - 75px); }
     #viz_speakers .speaker-container .speaker-timeline:before {
       background-color: rgba(255, 255, 255, 0.5);
       content: "";

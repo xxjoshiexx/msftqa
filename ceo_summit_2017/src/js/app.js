@@ -369,7 +369,8 @@ class Analytic {
         });
       },
       padding: {
-        left: 50
+        left: 50,
+        right: 20
       },
       size: {
         height: height
@@ -396,7 +397,7 @@ class Analytic {
   }
 
   renderTimeline() {
-    let width = $('.container-right .top').innerWidth() - 50;
+    let width = $('.container-right .top').innerWidth() - 70;
 
     let speakers = [
       {

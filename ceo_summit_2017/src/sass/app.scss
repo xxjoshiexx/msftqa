@@ -124,17 +124,15 @@ input {
     .container-left {
       top: 45px;
       width: 50%;
+
+      .top {
+        padding: $paddingBase;
+      }
     }
 
     .container-right {
       left: 50%;
       top: 45px;
-
-      .bottom {
-      }
-      .top {
-
-      }
     }
 
     .container-top {
@@ -604,7 +602,7 @@ ul.selection-group {
       left: 50px;
       position: absolute;
       top: $paddingBase + 20px;
-      width: calc(100% - 55px);
+      width: calc(100% - 75px);
 
       &:before {
         background-color: $whiteText;
