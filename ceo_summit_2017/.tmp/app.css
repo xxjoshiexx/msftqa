@@ -5856,8 +5856,8 @@ input {
       margin-left: 12px;
       margin-top: -2px;
       width: 10px; }
-    .c3 .c3-tooltip tr.c3-tooltip-name--happy td.name span:after {
-      background: transparent url("../images/happy.png") no-repeat;
+    .c3 .c3-tooltip tr.c3-tooltip-name--like td.name span:after {
+      background: transparent url("../images/thumbs_up.png") no-repeat;
       background-size: contain;
       content: "";
       display: inline-block;
@@ -5865,8 +5865,8 @@ input {
       margin-left: 12px;
       margin-top: -2px;
       width: 10px; }
-    .c3 .c3-tooltip tr.c3-tooltip-name--like td.name span:after {
-      background: transparent url("../images/thumbs_up.png") no-repeat;
+    .c3 .c3-tooltip tr.c3-tooltip-name--love td.name span:after {
+      background: transparent url("../images/happy.png") no-repeat;
       background-size: contain;
       content: "";
       display: inline-block;

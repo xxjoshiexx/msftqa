@@ -304,8 +304,8 @@ class Analytic {
         ['angry'],
         ['applause'],
         ['dislike'],
-        ['happy'],
-        ['like']
+        ['like'],
+        ['love']
       ];
 
       for (let i = 0; i < 91; ++i) {
@@ -345,14 +345,14 @@ class Analytic {
       bindto: '#viz_engagement',
       data: {
         colors: {
-          angry: '#575DA9',
-          applause: '#EC028C',
+          angry: '#FDB813',
+          applause: '#b9fd75',
           dislike: '#FF8C00',
-          happy: '#b9fd75',
-          like: '#FDB813'
+          like: '#575DA9',
+          love: '#EC028C',
         },
         columns: data,
-        groups: [['angry', 'applause', 'dislike', 'happy', 'like']],
+        groups: [['angry', 'applause', 'dislike', 'happy', 'love']],
         type: 'bar',
         x: 'x'
       },
