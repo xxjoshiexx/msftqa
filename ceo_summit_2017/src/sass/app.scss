@@ -99,6 +99,10 @@ input {
   padding-right: $paddingBase * 2;
 }
 
+.pull-right {
+  float: right;
+}
+
 .ptb-base {
   padding-bottom: $paddingBase;
   padding-top: $paddingBase;
@@ -150,6 +154,10 @@ input {
           top: 60px;
         }
       }
+
+      .top {
+        background: black;
+      }
     }
 
     .container-right {
@@ -176,6 +184,14 @@ input {
     .container-top {
       background: black;
       height: 45px;
+
+      .tab-container {
+        height: initial;
+        position: absolute;
+        right: 0px;
+        top: 7px;
+        width: 200px;
+      }
     }
   }
 
@@ -200,23 +216,6 @@ input {
       .top {
         height: 45px;
         padding: 9px 14px;
-
-        h1 {
-          @extend .m-0;
-        }
-
-        .live-badge {
-          background-color: $lightPurple;
-          border-radius: 7px;
-          color: $black;
-          display: inline-block;
-          font-size: .5em;
-          font-weight: bold;
-          margin-top: 5px;
-          padding: 3px $paddingBase;
-          text-transform: uppercase;
-          vertical-align: top;
-        }
       }
 
       .bottom {
@@ -542,6 +541,27 @@ ul.emoji-select {
     top: 5px;
   }
 }
+
+// Page title
+
+h1.page-title {
+  @extend .m-0;
+
+  .live-badge {
+    background-color: $lightPurple;
+    border-radius: 7px;
+    color: $black;
+    display: inline-block;
+    font-size: .5em;
+    font-weight: bold;
+    margin-top: 5px;
+    padding: 3px $paddingBase;
+    text-transform: uppercase;
+    vertical-align: top;
+  }
+}
+
+// Playhead
 
 .playhead {
   background: rgba($whiteText, .3);
