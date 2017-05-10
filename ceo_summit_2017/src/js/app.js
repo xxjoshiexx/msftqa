@@ -171,6 +171,22 @@ class Attendee {
     this.AMP = media;
   }
 
+  renderTranscriptionText(language=this.languages.selected) {
+    this.DOM.transcriptionTimeline.content.empty();
+    let texts = transcriptionLanguages[language.toLowerCase()];
+    for (let i = 0; i <= this.transcript.index - 1; ++i) {
+      let text = texts[i];
+      if (text.text.length > 0) {
+        let textNode = TranscribedText({
+          text: text.text,
+          timeString: text.start.split('.')[0]
+        });
+        let $t = $(textNode).addClass('visible');
+        this.DOM.transcriptionTimeline.content.append($t);
+      }
+    }
+  }
+
   setTranscriptInventory(language=this.languages.selected) {
     let texts = transcriptionLanguages[language.toLowerCase()];
     this.transcript.inventory = texts.map((text) => {
