@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CEO Summit 2017 | Analytics</title>
+    <link href="//amp.azure.net/libs/amp/2.1.0/skins/amp-default/azuremediaplayer.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/app.css">
   </head>
   <body class="analytics-view">
@@ -15,21 +16,73 @@
       </div>
       <div class="container-left">
         <div class="top">
-          <iframe id="iframe_video" width="100%" height="100%" src="https://web.microsoftstream.com/embed/video/521344bc-ca31-4b97-8527-976e9f2bbe58?autoplay=false" frameborder="0" allowfullscreen></iframe>
+          <video class="azuremediaplaery amp-default-skin" id="video" autoplay controls width="100%" height="100%">
+            <source src="https://msstream.streaming.mediaservices.windows.net/7e18fdf3-4978-4f51-ab41-2aeba9694c5d/CEO%20Town%20Hall.ism/manifest" type="application/vnd.ms-sstr+xml" />
+            <p class="amp-no-js">
+                To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video
+            </p>
+          </video>
         </div>
-        <div class="bottom"></div>
+        <div class="bottom">
+          <h2 class="plr-base-2">Viewers During Live Broadcast</h2>
+          <div class="clickable-viz" id="viz_retention"></div>
+          <div class="playhead"></div>
+        </div>
       </div>
       <div class="container-right">
         <div class="top">
-          <div id="viz_engagement"></div>
+          <h2 class="plr-base-2">Expression Engagement</h2>
+          <div class="viz-filters" id="viz_filter">
+            <div class="viz-filter active" data-filter="applause">
+              <div class="viz-filter-swatch"></div>
+              <div class="viz-filter-image-container">
+                <img class="viz-filter-image" src="../images/applause.png"/>
+              </div>
+              <span>Applause</span>
+            </div>
+            <div class="viz-filter active" data-filter="angry">
+              <div class="viz-filter-swatch"></div>
+              <div class="viz-filter-image-container">
+                <img class="viz-filter-image" src="../images/sad.png"/>
+              </div>
+              <span>Angry</span>
+            </div>
+            <div class="viz-filter active" data-filter="dislike">
+              <div class="viz-filter-swatch"></div>
+              <div class="viz-filter-image-container">
+                <img class="viz-filter-image" src="../images/thumbs_down.png"/>
+              </div>
+              <span>Dislike</span>
+            </div>
+            <div class="viz-filter active" data-filter="like">
+              <div class="viz-filter-swatch"></div>
+              <div class="viz-filter-image-container">
+                <img class="viz-filter-image" src="../images/thumbs_up.png"/>
+              </div>
+              <span>Like</span>
+            </div>
+            <div class="viz-filter active" data-filter="love">
+              <div class="viz-filter-swatch"></div>
+              <div class="viz-filter-image-container">
+                <img class="viz-filter-image" src="../images/happy.png"/>
+              </div>
+              <span>Love</span>
+            </div>
+          </div>
+          <div class="clickable-viz" id="viz_engagement"></div>
+          <div class="playhead"></div>
         </div>
         <div class="bottom">
-          <div class="ptb-base-2" id="viz_speakers"></div>
+          <h2 class="plr-base-2">Active Speaker</h2>
+          <div class="clickable-viz" id="viz_speakers"></div>
+          <div class="playhead"></div>
       </div>
     </div>
+    <script src= "//amp.azure.net/libs/amp/2.1.0/azuremediaplayer.min.js"></script>
     <script src="../js/d3.min.js"></script>
     <script src="../js/c3.min.js"></script>
-    <script src="../js/timeline.js"></script>
+    <script src="../js/retention.js"></script>
+    <script src="../js/sentiment.js"></script>
     <script src="../js/app.js"></script>
   </body>
 </html>

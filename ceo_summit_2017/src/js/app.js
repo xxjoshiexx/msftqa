@@ -9,6 +9,8 @@ import TranscribedText from '../templates/transcribed_text.handlebars';
 class Attendee {
   constructor() {
 
+    this.AMP = null;
+
     this.commentIndex = 0;
 
     this.DOM = {
@@ -135,8 +137,6 @@ class Attendee {
     this.renderMediaPlayer();
     this.setTranscriptInventory();
     this.renderLanguageSelectionGroup();
-    //this.renderTranscriptionText();
-    //this.renderYammerComments();
   }
 
   renderLanguageSelectionGroup(options=this.languages.options) {
@@ -167,41 +167,9 @@ class Attendee {
       this.syncComments(time);
       this.syncTranscript(time);
     });
+
+    this.AMP = media;
   }
-
-/*
-  renderTranscriptionText(language=this.languages.selected) {
-    this.DOM.transcriptionTimeline.content.empty();
-
-    let texts = transcriptionLanguages[language.toLowerCase()];
-
-    for (let i = 0; i <= this.transcript.index - 1; ++i) {
-      let text = texts[i];
-      if (text.text.length > 0) {
-        let textNode = TranscribedText({
-          text: text.text,
-          timeString: text.start.split('.')[0]
-        });
-
-        let $t = $(textNode).addClass('visible');
-        this.DOM.transcriptionTimeline.content.append($t);
-      }
-    }
-  }
-
-  renderYammerComments() {
-    let comment = Comment({
-      avatarSrc: 'https://randomuser.me/api/portraits/men/5.jpg',
-      name: 'Guy Userman',
-      comment: 'Bacon ipsum dolor amet pancetta alcatra capicola brisket pork salami meatloaf hamburger pastrami flank kevin prosciutto andouille landjaeger cow. Chuck leberkas ham tail shank tongue.',
-      timeString: '12:34'
-    });
-
-    for (let i = 0; i < 25; ++i) {
-      this.DOM.yammerComments.content.append(comment);
-    }
-  }
-*/
 
   setTranscriptInventory(language=this.languages.selected) {
     let texts = transcriptionLanguages[language.toLowerCase()];
@@ -264,139 +232,83 @@ class Attendee {
 }
 
 class Analytic {
-  constructor() {}
+  constructor() {
 
-  init() {
-    this.renderLineGraph();
-    this.renderTimeline();
+    this.AMP = null;
+
+    this.charts = {
+      engagement: null,
+      speaker: null,
+      viewers: null
+    }
+
+    this.DOM = {
+      clickableViz: $('.clickable-viz'),
+      vizFilter: $('.viz-filter')
+    };
   }
 
-  renderLineGraph() {
-    // [angry, applause, dislike, like, happy]
-    let dataFactory = () => {
-      let seconds = -1;
-      let minutes = 0;
-      let f = (t) => { return t < 10 ? `0${t}` : t; };
-      let r = (max) => { return ~~(Math.random() * max)};
-      let lastStep = [0,0,0,0,0];
-      let factor = 30;
-      let base = 1000;
-      let generateStep = () => {
-        let newStep = lastStep.map((value, i) => {
-          let halfEnvelope = base * ((1/factor)/2);
-          let max = Math.min(1 * base, value + halfEnvelope);
-          let min = Math.max(0, value - halfEnvelope);
+  init() {
+    this.renderMediaPlayer();
+    this.renderEngagement();
+    this.renderActiveSpeakers();
+    this.renderRetention();
 
-          return (i === 0 || i === 2) ?
-            (Math.random() > .85) ?
-              0 :
-              (Math.random()*(max-min)+min) :
-            (Math.random() > .85) ?
-              0 :
-              (Math.random()*(max-min)+min);
-        });
-        lastStep = newStep;
-        return newStep;
-      };
+    this.DOM.vizFilter.mouseout((e) => {
+      let filter = $(e.delegateTarget).data().filter;
+      $(`.c3-legend-item-${filter}`).d3mouseout();
+    });
 
-      let returnData = [
-        ['x'],
-        ['angry'],
-        ['applause'],
-        ['dislike'],
-        ['like'],
-        ['love']
-      ];
+    this.DOM.vizFilter.mouseover((e) => {
+      let filter = $(e.delegateTarget).data().filter;
+      $(`.c3-legend-item-${filter}`).d3mouseover();
+    });
 
-      for (let i = 0; i < 91; ++i) {
-        seconds++;
-        if (seconds > 59) { minutes++; seconds = 0; }
+    this.DOM.vizFilter.click((e) => {
+      let filter = $(e.delegateTarget).data().filter;
+      $(`.c3-legend-item-${filter}`).d3click();
+      $(e.delegateTarget).toggleClass('active');
+    });
 
-        generateStep().forEach((data, index) => {
-          returnData[index+1].push(data);
-        });
-      }
+    this.DOM.clickableViz.click((e) => {
+      let leftOffset = 60;
+      if (e.offsetX < leftOffset) return;
 
-      let secondStep = 10;
-      seconds = -10;
-      minutes = 0;
-      for (let i = 0; i < 91; ++i) {
-        seconds += secondStep;
-        if (seconds > 59) { minutes++; seconds = 0; }
-        let m = minutes < 10 ? `0${minutes}` : minutes;
-        let s = seconds < 10 ? `0${seconds}` : seconds;
-        returnData[0].push(`${m}:${s}`);
-      }
+      let adjustedLeft = e.offsetX - leftOffset;
+      let paddingConst = 28;
 
-      return returnData;
-    };
+      let domain = $(e.delegateTarget).innerWidth() - leftOffset - paddingConst;
 
-    let height = $('.container-right .top').innerHeight();
-    let data = dataFactory();
-    let chart = c3.generate({
-      axis: {
-        x: {
-          tick: {
-            count: 10
-          },
-          type: 'category'
-        }
-      },
-      bindto: '#viz_engagement',
-      data: {
-        colors: {
-          angry: '#FDB813',
-          applause: '#b9fd75',
-          dislike: '#FF8C00',
-          like: '#575DA9',
-          love: '#EC028C',
-        },
-        columns: data,
-        x: 'x'
-      },
-      onmouseout: () => {
-        $(window).off('mousemove');
-        $('#timeline_scrubber').removeClass('active');
-      },
-      onmouseover: () => {
-        let leftOffset = $('#viz_engagement').offset().left;
-        $(window).on('mousemove', (e) => {
-          let left = (e.offsetX < 50) ? 50 : e.offsetX;
-          $('#timeline_scrubber').css('left', left);
-          $('#timeline_scrubber').toggleClass('active', $('.c3-tooltip-container').is(':visible'));
-        });
-      },
-      padding: {
-        left: 50,
-        right: 20
-      },
-      size: {
-        height: height
-      },
-      tooltip: {
-        format: {
-          name: (name, ratio, id, i) => {
-            return name;
-          },
-          title: (x) => {
-            return `Sentiment at ${data[0][x]}`
-          },
-          value: (value, ratio, id, i) => {
-            return value.toFixed(0);
-          }
-        }
-      }
+      let percent = adjustedLeft / domain;
+      let time = ~~(this.AMP.duration() * percent);
+
+      console.log(adjustedLeft, domain, percent, time);
+
+      this.AMP.currentTime(time);
     });
 
     $(window).on('resize', () => {
-      let height = $('.container-right .top').innerHeight();
-      chart.resize({height});
+      this.charts.engagement.resize({
+        height: this.getChartHeight($('.container-right .top'), $('#viz_filter'))
+      });
+
+      this.charts.viewers.resize({
+        height: this.getChartHeight($('.container-left .bottom'), $('.container-left .bottom h2'), 0)
+      });
     });
   }
 
-  renderTimeline() {
-    let width = $('.container-right .top').innerWidth() - 70;
+  getChartHeight($parent, $neg, slop=10) {
+    let height = $parent.innerHeight();
+    let negativeHeight = !!$neg ?
+      $neg.position().top + $neg.outerHeight() :
+      0;
 
+    return height - (negativeHeight - slop);
+  }
+
+  renderActiveSpeakers() {
+    let width = $('.container-right .top').innerWidth() - 70;
     let speakers = [
       {
         avatarSrc: '../images/satya.png',
@@ -438,11 +350,162 @@ class Analytic {
       $('#viz_speakers').append(Speaker(speaker));
     }
 
+    this.charts.speaker = $('#viz_speakers');
+
     $('#viz_speakers').append('<div id="timeline_scrubber"></div>');
+  }
+
+  renderEngagement() {
+    let chart = c3.generate({
+      axis: {
+        x: {
+          tick: {
+            count: 10
+          },
+          type: 'category'
+        }
+      },
+      bindto: '#viz_engagement',
+      data: {
+        columns: sentiment,
+        x: 'x'
+      },
+      onmouseout: () => {
+        $(window).off('mousemove');
+        $('#timeline_scrubber').removeClass('active');
+      },
+      onmouseover: () => {
+        let leftOffset = $('#viz_engagement').offset().left;
+        $(window).on('mousemove', (e) => {
+          let left = (e.offsetX < 50) ? 50 : e.offsetX;
+          $('#timeline_scrubber').css('left', left);
+          $('#timeline_scrubber').toggleClass('active', $('.c3-tooltip-container').is(':visible'));
+        });
+      },
+      padding: {
+        left: 60,
+        right: 20
+      },
+      size: {
+        height: this.getChartHeight($('.container-right .top'), $('#viz_filter'))
+      },
+      tooltip: {
+        format: {
+          name: (name, ratio, id, i) => {
+            return name;
+          },
+          title: (x) => {
+            return `Sentiment at ${sentiment[0][x]}`
+          },
+          value: (value, ratio, id, i) => {
+            return value.toFixed(0);
+          }
+        }
+      }
+    });
+
+    this.charts.engagement = chart;
+  }
+
+  renderMediaPlayer() {
+    let media = amp('video');
+
+    media.src([{
+      src: "https://msstream.streaming.mediaservices.windows.net/7e18fdf3-4978-4f51-ab41-2aeba9694c5d/CEO%20Town%20Hall.ism/manifest",
+      type: "application/vnd.ms-sstr+xml"
+    }]);
+
+    media.on('timeupdate', () => {
+      let duration = media.duration();
+      let time = media.currentTime();
+      this.syncPlayheads(duration, time);
+    });
+
+    this.AMP = media;
+  }
+
+  renderRetention() {
+    let chart = c3.generate({
+      axis: {
+        x: {
+          tick: {
+            count: 10
+          },
+          type: 'category'
+        }
+      },
+      bindto: '#viz_retention',
+      data: {
+        colors: {
+          'active viewers': '#b9fd75'
+        },
+        columns: retention,
+        x: 'x'
+      },
+      onmouseout: () => {
+        $(window).off('mousemove');
+        $('#timeline_scrubber').removeClass('active');
+      },
+      onmouseover: () => {
+        let leftOffset = $('#viz_engagement').offset().left;
+        $(window).on('mousemove', (e) => {
+          let left = (e.offsetX < 50) ? 50 : e.offsetX;
+          $('#timeline_scrubber').css('left', left);
+          $('#timeline_scrubber').toggleClass('active', $('.c3-tooltip-container').is(':visible'));
+        });
+      },
+      padding: {
+        bottom: 20,
+        left: 60,
+        right: 20
+      },
+      size: {
+        height: this.getChartHeight($('.container-left .bottom'), $('.container-left .bottom h2'), 0)
+      },
+      tooltip: {
+        format: {
+          name: (name, ratio, id, i) => {
+            return name;
+          },
+          title: (x) => {
+            return `Active Viewers at ${retention[0][x]}`
+          },
+          value: (value, ratio, id, i) => {
+            return value.toFixed(0);
+          }
+        }
+      }
+    });
+
+    this.charts.viewers = chart;
+  }
+
+  setVideoPosition(time) {
 
   }
 
+  syncPlayheads(duration, time) {
+    let leftOffset = 60;
+    let paddingConst = 28;
+
+    $('.playhead').each((i, el) => {
+      let domain = $(el).parent().innerWidth() - leftOffset - paddingConst;
+      let percentComplete = time/duration;
+      let position = (domain * percentComplete) + leftOffset;
+      $(el).css('left', position);
+    });
+  }
 }
+
+// Remeber no fat arrow
+['click', 'mouseout', 'mouseover'].forEach(function(event) {
+  $.fn[`d3${event}`] = function () {
+    this.each(function (i, e) {
+      var evt = new MouseEvent(event);
+      e.dispatchEvent(evt);
+    });
+  };
+});
 
 $(document).ready(() => {
   if ($('body.attendee-view').length) {
