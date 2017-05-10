@@ -8,6 +8,7 @@
 
 $black: #222;
 $darkPurple: #2C2B31;
+$lightBlack: #111112;
 $lightPurple: #9FA5FF;
 $magenta: #EC028C;
 $orange: #FF8C00;
@@ -108,7 +109,7 @@ input {
 // ********** Containers **********
 
 .analytics-view {
-  background-color: $darkPurple;
+  background-color: $lightBlack;
   overflow: hidden;
 
   .container {
@@ -143,20 +144,42 @@ input {
 }
 
 .attendee-view {
-  background-color: $darkPurple;
+  background-color: $lightBlack;
   overflow: hidden;
 
   .container {
-    &, .container-left, .container-right, .bottom {
+    &, .container-left, .container-right, .bottom, .top {
       position: absolute;
       top: 0; bottom: 0;
       left: 0; right: 0;
     }
 
     .container-left {
-      border-right: 3px solid $black;
+      border-right: 3px solid black;
       bottom: 45px;
       width: calc(100% - #{$containerRightWidth});
+
+      .top {
+        height: 45px;
+        padding: 9px 14px;
+
+        h1 {
+          @extend .m-0;
+        }
+
+        .live-badge {
+          background-color: $lightPurple;
+          border-radius: 7px;
+          color: $black;
+          display: inline-block;
+          font-size: .5em;
+          font-weight: bold;
+          margin-top: 5px;
+          padding: 3px $paddingBase;
+          text-transform: uppercase;
+          vertical-align: top;
+        }
+      }
 
       .bottom {
         bottom: -45px;
@@ -173,7 +196,7 @@ input {
 }
 
 .index-view {
-  background-color: $darkPurple;
+  background-color: $lightBlack;
 
   .links {
     position: fixed;
@@ -186,6 +209,40 @@ input {
 }
 
 // ********** Components **********
+
+// AMP
+
+.azuremediaplaery {
+
+  .amp-content-title {
+    display: none;
+  }
+
+  .vjs-control-bar {
+    background-color: black;
+  }
+
+  .vjs-progress-holder {
+    background: $lightBlack;
+
+    .vjs-load-progress{
+      background: $whiteText;
+    }
+
+    .vjs-play-progress {
+      background: $lightPurple;
+    }
+
+  }
+
+  .vjs-tech {
+    background: black;
+    height: calc(100% - 45px);
+    position: absolute;
+    top: 45px;
+    width: 100%;
+  }
+}
 
 // Button
 
@@ -319,12 +376,25 @@ input {
 // Comment
 
 .comment {
+  -webkit-transition: opacity 333ms ease-in;
+  -moz-transition: opacity 333ms ease-in;
+  -ms-transition: opacity 333ms ease-in;
+  -o-transition: opacity 333ms ease-in;
+  transition: opacity 333ms ease-in;
+
+  opacity: 0;
+
+  &.visible {
+    opacity: 1;
+  }
+
   td {
     padding: $paddingBase;
     vertical-align: top;
   }
 
   .comment-avatar {
+    border: 2px solid $whiteText;
     height: 35px;
     width: 35px;
     border-radius: 35px;
@@ -528,7 +598,7 @@ ul.selection-group {
 // Transcription Footer
 
 .transcription-footer {
-  background: $darkPurple;
+  background: $lightBlack;
   color: $whiteText;
   font-size: .75em;
   height: 100%;

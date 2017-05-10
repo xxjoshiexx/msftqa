@@ -5703,7 +5703,7 @@ input {
   input:active, input:focus {
     background: rgba(255, 255, 255, 0.05); }
 
-.m-0 {
+.m-0, .attendee-view .container .container-left .top h1 {
   margin: 0; }
 
 .p-0 {
@@ -5731,7 +5731,7 @@ input {
   width: 100%; }
 
 .analytics-view {
-  background-color: #2C2B31;
+  background-color: #111112;
   overflow: hidden; }
   .analytics-view .container, .analytics-view .container .container-top, .analytics-view .container .container-left, .analytics-view .container .container-right, .analytics-view .container .top, .analytics-view .container .bottom {
     position: absolute;
@@ -5755,19 +5755,33 @@ input {
     height: 45px; }
 
 .attendee-view {
-  background-color: #2C2B31;
+  background-color: #111112;
   overflow: hidden; }
-  .attendee-view .container, .attendee-view .container .container-left, .attendee-view .container .container-right, .attendee-view .container .bottom {
+  .attendee-view .container, .attendee-view .container .container-left, .attendee-view .container .container-right, .attendee-view .container .bottom, .attendee-view .container .top {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0; }
   .attendee-view .container .container-left {
-    border-right: 3px solid #222;
+    border-right: 3px solid black;
     bottom: 45px;
     width: -webkit-calc(100% - 350px);
     width: calc(100% - 350px); }
+    .attendee-view .container .container-left .top {
+      height: 45px;
+      padding: 9px 14px; }
+      .attendee-view .container .container-left .top .live-badge {
+        background-color: #9FA5FF;
+        border-radius: 7px;
+        color: #222;
+        display: inline-block;
+        font-size: .5em;
+        font-weight: bold;
+        margin-top: 5px;
+        padding: 3px 7px;
+        text-transform: uppercase;
+        vertical-align: top; }
     .attendee-view .container .container-left .bottom {
       bottom: -45px;
       height: 45px;
@@ -5778,7 +5792,7 @@ input {
     left: calc(100% - 350px); }
 
 .index-view {
-  background-color: #2C2B31; }
+  background-color: #111112; }
   .index-view .links {
     position: fixed;
     top: 50%;
@@ -5786,6 +5800,27 @@ input {
     margin-top: -50px;
     margin-left: -100px;
     width: 200px; }
+
+.azuremediaplaery .amp-content-title {
+  display: none; }
+
+.azuremediaplaery .vjs-control-bar {
+  background-color: black; }
+
+.azuremediaplaery .vjs-progress-holder {
+  background: #111112; }
+  .azuremediaplaery .vjs-progress-holder .vjs-load-progress {
+    background: rgba(255, 255, 255, 0.5); }
+  .azuremediaplaery .vjs-progress-holder .vjs-play-progress {
+    background: #9FA5FF; }
+
+.azuremediaplaery .vjs-tech {
+  background: black;
+  height: -webkit-calc(100% - 45px);
+  height: calc(100% - 45px);
+  position: absolute;
+  top: 45px;
+  width: 100%; }
 
 .button {
   background: transparent;
@@ -5888,25 +5923,28 @@ input {
 .c3 .tick text {
   fill: rgba(255, 255, 255, 0.5); }
 
-.comment td {
-  padding: 7px;
-  vertical-align: top; }
-
-.comment .comment-avatar {
-  height: 35px;
-  width: 35px;
-  border-radius: 35px; }
-
-.comment .comment-comment {
-  color: rgba(255, 255, 255, 0.5);
-  margin: 0; }
-
-.comment .comment-name {
-  color: rgba(255, 255, 255, 0.9);
-  margin: 0; }
-
-.comment .comment-time {
-  color: rgba(255, 255, 255, 0.9); }
+.comment {
+  -webkit-transition: opacity 333ms ease-in;
+  transition: opacity 333ms ease-in;
+  opacity: 0; }
+  .comment.visible {
+    opacity: 1; }
+  .comment td {
+    padding: 7px;
+    vertical-align: top; }
+  .comment .comment-avatar {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    height: 35px;
+    width: 35px;
+    border-radius: 35px; }
+  .comment .comment-comment {
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0; }
+  .comment .comment-name {
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0; }
+  .comment .comment-time {
+    color: rgba(255, 255, 255, 0.9); }
 
 ul.emoji-select {
   list-style-type: none;
@@ -6028,7 +6066,7 @@ ul.selection-group {
     bottom: 45px; }
 
 .transcription-footer {
-  background: #2C2B31;
+  background: #111112;
   color: rgba(255, 255, 255, 0.5);
   font-size: .75em;
   height: 100%;

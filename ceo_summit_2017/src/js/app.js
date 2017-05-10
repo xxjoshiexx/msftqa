@@ -8,6 +8,9 @@ import TranscribedText from '../templates/transcribed_text.handlebars';
 
 class Attendee {
   constructor() {
+
+    this.commentIndex = 0;
+
     this.DOM = {
       iframeVideo: $('#iframe_video'),
       languageSelect: {
@@ -27,8 +30,6 @@ class Attendee {
       }
     };
 
-    this.inIframe = false;
-
     this.languages = {
       options: [
         'Chinese',
@@ -47,14 +48,6 @@ class Attendee {
     this.slideUp = {
       active: false,
       target: $('#language_select')
-    };
-
-    this.timer = {
-      _self: null,
-      active: false,
-      rate: 16,
-      report: 0,
-      time: 0
     };
 
     this.transcript = {
@@ -139,22 +132,11 @@ class Attendee {
       $(`#${$target.data().tab}`).addClass('active');
     });
 
-    $(window).on('blur', () => {
-      if (this.inIframe) {
-        if (this.timer.active) { this.stopTimeSync(); }
-        else { this.startTimeSync(); }
-      }
-    });
-
-    this.DOM.iframeVideo
-      .on('load', (e) => { this.startTimeSync(); })
-      .on('mouseover', () => { this.inIframe = true; })
-      .on('mouseout', () => { this.inIframe = false; });
-
+    this.renderMediaPlayer();
     this.setTranscriptInventory();
     this.renderLanguageSelectionGroup();
-    this.renderTranscriptionText();
-    this.renderYammerComments();
+    //this.renderTranscriptionText();
+    //this.renderYammerComments();
   }
 
   renderLanguageSelectionGroup(options=this.languages.options) {
@@ -172,6 +154,22 @@ class Attendee {
       .click((e) => this.handleLanguagePreSelect(e));
   }
 
+  renderMediaPlayer() {
+    let media = amp('video');
+
+    media.src([{
+      src: "https://msstream.streaming.mediaservices.windows.net/7e18fdf3-4978-4f51-ab41-2aeba9694c5d/CEO%20Town%20Hall.ism/manifest",
+      type: "application/vnd.ms-sstr+xml"
+    }]);
+
+    media.on('timeupdate', () => {
+      let time = media.currentTime();
+      this.syncComments(time);
+      this.syncTranscript(time);
+    });
+  }
+
+/*
   renderTranscriptionText(language=this.languages.selected) {
     this.DOM.transcriptionTimeline.content.empty();
 
@@ -203,6 +201,7 @@ class Attendee {
       this.DOM.yammerComments.content.append(comment);
     }
   }
+*/
 
   setTranscriptInventory(language=this.languages.selected) {
     let texts = transcriptionLanguages[language.toLowerCase()];
@@ -211,29 +210,30 @@ class Attendee {
     });
   }
 
-  startTimeSync() {
-    clearInterval(this.timer._self);
-    this.timer._self = setInterval(() => {
-      $(window).focus();
-      this.timer.time += this.timer.rate;
-      if (this.timer.report === 60) {
-        this.syncTranscript();
-        this.timer.report = 0;
-      }
-      this.timer.report++;
-    }, this.timer.rate);
-    this.timer.active = true;
+  // TODO: Abstract these two...
+  syncComments(time) {
+    let target = comments[this.commentIndex];
+    let millisecondMark = 0;
+    let [minutes, seconds] = target.timeString.split(':');
+    minutes = parseInt(minutes);
+    seconds = parseInt(seconds);
+
+    if (minutes > 0) { seconds += (60 * minutes); }
+
+    millisecondMark = seconds * 1000;
+
+    if (millisecondMark <= time * 1000) {
+      let commentNode = Comment(target);
+      let $c = $(commentNode);
+
+      this.DOM.yammerComments.content.prepend($c);
+
+      setTimeout(() => { $c.addClass('visible'); }, 100);
+      this.commentIndex++;
+    }
   }
 
-  stopTimeSync() {
-    clearInterval(this.timer._self);
-    this.timer.active = false;
-    this.timer._self = setInterval(() => {
-      $(window).focus();
-    }, this.timer.rate);
-  }
-
-  syncTranscript() {
+  syncTranscript(time) {
     let target = this.transcript.inventory[this.transcript.index];
     let millisecondMark = 0;
     let [, minutes, seconds] = target.split(':');
@@ -244,7 +244,7 @@ class Attendee {
 
     millisecondMark = seconds * 1000;
 
-    if (millisecondMark <= this.timer.time) {
+    if (millisecondMark <= time * 1000) {
       let text = transcriptionLanguages[this.languages.selected.toLowerCase()][this.transcript.index];
 
       let textNode = TranscribedText({
