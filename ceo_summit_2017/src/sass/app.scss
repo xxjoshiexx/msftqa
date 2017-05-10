@@ -517,6 +517,10 @@ ul.emoji-select {
 
   &.hoverable-purple:hover {
     color: $lightPurple;
+
+    & > g {
+      fill: $lightPurple !important;
+    }
   }
 
   &.hoverable-white:hover {
@@ -667,8 +671,16 @@ ul.selection-group {
       font-size: 1.5em;
       padding: 0 10px;
 
+      & > svg > g {
+        fill: $whiteText;
+      }
+
       &.active {
         color: $lightPurple;
+
+        & > svg > g {
+          fill: $lightPurple !important;
+        }
       }
     }
   }

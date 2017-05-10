@@ -6035,6 +6035,8 @@ ul.emoji-select {
   cursor: pointer; }
   .hoverable.hoverable-purple:hover {
     color: #9FA5FF; }
+    .hoverable.hoverable-purple:hover > g {
+      fill: #9FA5FF !important; }
   .hoverable.hoverable-white:hover {
     color: rgba(255, 255, 255, 0.9); }
 
@@ -6132,8 +6134,12 @@ ul.selection-group {
       display: inline-block;
       font-size: 1.5em;
       padding: 0 10px; }
+      .tab-container ul.tab-nav li.tab-link > svg > g {
+        fill: rgba(255, 255, 255, 0.5); }
       .tab-container ul.tab-nav li.tab-link.active {
         color: #9FA5FF; }
+        .tab-container ul.tab-nav li.tab-link.active > svg > g {
+          fill: #9FA5FF !important; }
 
 .tab-slide-up {
   background: #222;

@@ -174,13 +174,16 @@ class Attendee {
   setTranscriptInventory(language=this.languages.selected) {
     let texts = transcriptionLanguages[language.toLowerCase()];
     this.transcript.inventory = texts.map((text) => {
-      return text.start.split('.')[0];
+      return text.end.split('.')[0];
     });
   }
 
   // TODO: Abstract these two...
   syncComments(time) {
     let target = comments[this.commentIndex];
+
+    if (!target) return;
+
     let millisecondMark = 0;
     let [minutes, seconds] = target.timeString.split(':');
     minutes = parseInt(minutes);
@@ -203,6 +206,9 @@ class Attendee {
 
   syncTranscript(time) {
     let target = this.transcript.inventory[this.transcript.index];
+
+    if (!target) return;
+
     let millisecondMark = 0;
     let [, minutes, seconds] = target.split(':');
     minutes = parseInt(minutes);
@@ -215,17 +221,22 @@ class Attendee {
     if (millisecondMark <= time * 1000) {
       let text = transcriptionLanguages[this.languages.selected.toLowerCase()][this.transcript.index];
 
-      let textNode = TranscribedText({
-        text: text.text,
-        timeString: text.start.split('.')[0]
-      });
-      let $t = $(textNode);
+      if (text.text.length > 0) {
+        let [,m,s] = text.start.split('.')[0].split(':');
 
-      this.DOM.transcriptionTimeline.content.append($t);
-      setTimeout(() => {
-        $t.addClass('visible');
-        this.DOM.transcriptionTimeline.content[0].scrollTop = this.DOM.transcriptionTimeline.content[0].scrollHeight;
-      }, 100);
+        let textNode = TranscribedText({
+          text: text.text,
+          timeString: `${m}:${s}`
+        });
+        let $t = $(textNode);
+
+        this.DOM.transcriptionTimeline.content.append($t);
+        setTimeout(() => {
+          $t.addClass('visible');
+          this.DOM.transcriptionTimeline.content[0].scrollTop = this.DOM.transcriptionTimeline.content[0].scrollHeight;
+        }, 100);
+      }
+
       this.transcript.index++;
     }
   }
@@ -478,10 +489,6 @@ class Analytic {
     });
 
     this.charts.viewers = chart;
-  }
-
-  setVideoPosition(time) {
-
   }
 
   syncPlayheads(duration, time) {
