@@ -10,4 +10,8 @@ app.use(basicAuth({
   users: { 'admin': 'town!Hall365' }
 }));
 app.use(serveStatic(path.join(__dirname, 'ceo_summit_2017/public')));
-app.listen(3001);
+
+let port = process.env.PORT || 1337;
+app.listen(port);
+
+console.log("Server running at http://localhost:%d", port);
