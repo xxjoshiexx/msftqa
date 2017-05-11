@@ -298,10 +298,11 @@ class Analytic {
     });
 
     this.DOM.clickableViz.click((e) => {
-      //let leftOffset = (window.navigator.userAgent.indexOf("Edge") > -1) ? 0 : 60;
       let leftOffset = $(e.delegateTarget).width() - $(e.delegateTarget).find('.c3-zoom-rect').attr('width') - 14;
 
-      let adjustedLeft = e.offsetX - leftOffset;
+      let browserAdjust = (window.navigator.userAgent.indexOf("Edge") > -1) ? 60 : 0;
+
+      let adjustedLeft = e.offsetX - leftOffset + browserAdjust;
 
       let domain = $(e.delegateTarget).find('.c3-zoom-rect').attr('width');
 
