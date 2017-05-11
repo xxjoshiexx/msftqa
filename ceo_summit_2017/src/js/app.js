@@ -301,15 +301,25 @@ class Analytic {
       let leftOffset = 60;
       if (e.offsetX < leftOffset) return;
 
+      console.log(`offsetX: ${e.offsetX}`);
+
       let adjustedLeft = e.offsetX - leftOffset;
       let paddingConst = 28;
 
+      console.log(`adjustedLeft: ${adjustedLeft}`);
+
       let domain = $(e.delegateTarget).innerWidth() - leftOffset - paddingConst;
 
-      let percent = (adjustedLeft / domain) + .08;
+      console.log(`domain: ${domain}`);
+
+      let percent = (adjustedLeft / domain);
       let time = ~~(this.AMP.duration() * percent);
 
-      //console.log(adjustedLeft, domain, percent, time);
+      console.log(`percent: ${percent}`);
+      console.log(`time: ${time}`);
+
+
+      console.log(adjustedLeft, domain, percent, time);
 
       this.AMP.currentTime(time);
     });
@@ -322,6 +332,8 @@ class Analytic {
       this.charts.viewers.resize({
         height: this.getChartHeight($('.container-left .bottom'), $('.container-left .bottom h2'), 0)
       });
+
+      this.renderActiveSpeakers();
     });
   }
 
@@ -335,6 +347,8 @@ class Analytic {
   }
 
   renderActiveSpeakers() {
+    $('#viz_speakers').empty();
+
     let width = $('.container-right .top').innerWidth() - 70;
     let speakers = [
       {
