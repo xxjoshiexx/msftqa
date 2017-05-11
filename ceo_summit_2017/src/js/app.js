@@ -52,12 +52,31 @@ class Attendee {
       target: $('#language_select')
     };
 
+    this.state = {
+      initializedVideo: false
+    };
+
     this.transcript = {
       index: 0,
       inventory: []
     };
 
     this.TRANSITION = 333;
+  }
+
+  getUrlParameter(sParam) {
+    let sPageURL = decodeURIComponent(window.location.search.substring(1));
+    let sURLVariables = sPageURL.split('&');
+    let sParameterName;
+    let i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+      sParameterName = sURLVariables[i].split('=');
+
+      if (sParameterName[0] === sParam) {
+        return sParameterName[1] === undefined ? true : sParameterName[1];
+      }
+    }
   }
 
   handleLanguageConfirm() {
@@ -161,6 +180,15 @@ class Attendee {
       src: "https://msstream.streaming.mediaservices.windows.net/7e18fdf3-4978-4f51-ab41-2aeba9694c5d/CEO%20Town%20Hall.ism/manifest",
       type: "application/vnd.ms-sstr+xml"
     }]);
+
+    media.on('playing', () => {
+      if (!this.state.initializedVideo) {
+        let time = this.getUrlParameter('time')
+        if (time) { media.currentTime(parseInt(time)); }
+
+        this.state.initializedVideo = true;
+      }
+    });
 
     media.on('timeupdate', () => {
       let time = media.currentTime();
