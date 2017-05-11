@@ -495,8 +495,12 @@ class Analytic {
   }
 
   syncPlayheads(duration, time) {
-    let leftOffset = 60;
-    let paddingConst = 28;
+    //let leftOffset = 60;
+    let $base = $('.c3-zoom-rect').first();
+    let $parent = $base.closest('.clickable-viz');
+
+    let leftOffset = $parent.width() - $base.attr('width');
+    let paddingConst = 14;
 
     $('.playhead').each((i, el) => {
       let domain = $(el).parent().innerWidth() - leftOffset - paddingConst;
