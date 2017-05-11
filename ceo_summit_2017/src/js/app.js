@@ -298,20 +298,19 @@ class Analytic {
     });
 
     this.DOM.clickableViz.click((e) => {
-      let leftOffset = (window.navigator.userAgent.indexOf("Edge") > -1) ?
-        0 : 60;
-
-      if (e.offsetX < leftOffset) return;
+      //let leftOffset = (window.navigator.userAgent.indexOf("Edge") > -1) ? 0 : 60;
+      let leftOffset = $(e.delegateTarget).width() - $(e.delegateTarget).find('.c3-zoom-rect').attr('width') - 14;
 
       let adjustedLeft = e.offsetX - leftOffset;
-      let paddingConst = 28;
 
-      let domain = $(e.delegateTarget).innerWidth() - leftOffset - paddingConst;
+      let domain = $(e.delegateTarget).find('.c3-zoom-rect').attr('width');
 
       let percent = (adjustedLeft / domain);
-      let time = ~~(this.AMP.duration() * percent);
+      let time = ~~(this.AMP.duration() * percent) - 15;
 
-      alert(`target width: ${$(e.delegateTarget).innerWidth()}\r\ne.offsetX: ${e.offsetX}\r\nadjustedLeft: ${adjustedLeft}\r\ndomain: ${domain}\r\npercent: ${percent}\r\ntime: ${time}`)
+      time = time < 0 ? 0 : time;
+
+      //console.log(`leftOffset: ${leftOffset}\r\ne.offsetX: ${e.offsetX}\r\nadjustedLeft: ${adjustedLeft}\r\ndomain: ${domain}\r\npercent: ${percent}\r\ntime: ${time}`)
 
       this.AMP.currentTime(time);
     });
