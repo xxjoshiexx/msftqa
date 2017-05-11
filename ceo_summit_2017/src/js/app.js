@@ -301,25 +301,15 @@ class Analytic {
       let leftOffset = 60;
       if (e.offsetX < leftOffset) return;
 
-      console.log(`offsetX: ${e.offsetX}`);
-
       let adjustedLeft = e.offsetX - leftOffset;
       let paddingConst = 28;
 
-      console.log(`adjustedLeft: ${adjustedLeft}`);
-
       let domain = $(e.delegateTarget).innerWidth() - leftOffset - paddingConst;
-
-      console.log(`domain: ${domain}`);
 
       let percent = (adjustedLeft / domain);
       let time = ~~(this.AMP.duration() * percent);
 
-      console.log(`percent: ${percent}`);
-      console.log(`time: ${time}`);
-
-
-      console.log(adjustedLeft, domain, percent, time);
+      alert(`offsetX: ${e.offsetX}\r\nadjustedLeft: ${adjustedLeft}\r\ndomain: ${domain}\r\npercent: ${percent}\r\ntime: ${time}`)
 
       this.AMP.currentTime(time);
     });
