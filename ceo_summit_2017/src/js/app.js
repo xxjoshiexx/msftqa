@@ -302,7 +302,7 @@ class Analytic {
       if (e.offsetX < leftOffset) return;
 
       let offsetX = (window.navigator.userAgent.indexOf("Edge") > -1) ?
-        e.offsetX - 62 :
+        e.offsetX + 62 :
         e.offsetX;
 
       let adjustedLeft = offsetX - leftOffset;
