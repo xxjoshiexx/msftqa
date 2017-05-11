@@ -397,18 +397,6 @@ class Analytic {
         columns: sentiment,
         x: 'x'
       },
-      onmouseout: () => {
-        $(window).off('mousemove');
-        $('#timeline_scrubber').removeClass('active');
-      },
-      onmouseover: () => {
-        let leftOffset = $('#viz_engagement').offset().left;
-        $(window).on('mousemove', (e) => {
-          let left = (e.offsetX < 50) ? 50 : e.offsetX;
-          $('#timeline_scrubber').css('left', left);
-          $('#timeline_scrubber').toggleClass('active', $('.c3-tooltip-container').is(':visible'));
-        });
-      },
       padding: {
         left: 60,
         right: 20
@@ -470,18 +458,6 @@ class Analytic {
         },
         columns: retention,
         x: 'x'
-      },
-      onmouseout: () => {
-        $(window).off('mousemove');
-        $('#timeline_scrubber').removeClass('active');
-      },
-      onmouseover: () => {
-        let leftOffset = $('#viz_engagement').offset().left;
-        $(window).on('mousemove', (e) => {
-          let left = (e.offsetX < 50) ? 50 : e.offsetX;
-          $('#timeline_scrubber').css('left', left);
-          $('#timeline_scrubber').toggleClass('active', $('.c3-tooltip-container').is(':visible'));
-        });
       },
       padding: {
         bottom: 20,
