@@ -309,7 +309,7 @@ class Analytic {
       let percent = (adjustedLeft / domain) + .08;
       let time = ~~(this.AMP.duration() * percent);
 
-      console.log(adjustedLeft, domain, percent, time);
+      //console.log(adjustedLeft, domain, percent, time);
 
       this.AMP.currentTime(time);
     });
