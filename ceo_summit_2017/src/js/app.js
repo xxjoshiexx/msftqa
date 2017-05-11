@@ -309,7 +309,7 @@ class Analytic {
       let percent = (adjustedLeft / domain);
       let time = ~~(this.AMP.duration() * percent);
 
-      alert(`offsetX: ${e.offsetX}\r\nadjustedLeft: ${adjustedLeft}\r\ndomain: ${domain}\r\npercent: ${percent}\r\ntime: ${time}`)
+      alert(`target width: ${$(e.delegateTarget).innerWidth()}\r\noffsetX: ${e.offsetX}\r\nadjustedLeft: ${adjustedLeft}\r\ndomain: ${domain}\r\npercent: ${percent}\r\ntime: ${time}`)
 
       this.AMP.currentTime(time);
     });
