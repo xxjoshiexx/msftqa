@@ -390,6 +390,10 @@ class Analytic {
             count: 10
           },
           type: 'category'
+        },
+        y: {
+          // NOTE: This just fixes the -20 offset
+          min: 20
         }
       },
       bindto: '#viz_engagement',
