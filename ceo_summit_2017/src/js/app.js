@@ -298,14 +298,12 @@ class Analytic {
     });
 
     this.DOM.clickableViz.click((e) => {
-      let leftOffset = 60;
+      let leftOffset = (window.navigator.userAgent.indexOf("Edge") > -1) ?
+        0 : 60;
+
       if (e.offsetX < leftOffset) return;
 
-      let offsetX = (window.navigator.userAgent.indexOf("Edge") > -1) ?
-        e.offsetX + 62 :
-        e.offsetX;
-
-      let adjustedLeft = offsetX - leftOffset;
+      let adjustedLeft = e.offsetX - leftOffset;
       let paddingConst = 28;
 
       let domain = $(e.delegateTarget).innerWidth() - leftOffset - paddingConst;
@@ -313,7 +311,7 @@ class Analytic {
       let percent = (adjustedLeft / domain);
       let time = ~~(this.AMP.duration() * percent);
 
-      //alert(`target width: ${$(e.delegateTarget).innerWidth()}\r\ne.offsetX: ${e.offsetX}\r\noffsetX: ${offsetX}\r\nadjustedLeft: ${adjustedLeft}\r\ndomain: ${domain}\r\npercent: ${percent}\r\ntime: ${time}`)
+      alert(`target width: ${$(e.delegateTarget).innerWidth()}\r\ne.offsetX: ${e.offsetX}\r\nadjustedLeft: ${adjustedLeft}\r\ndomain: ${domain}\r\npercent: ${percent}\r\ntime: ${time}`)
 
       this.AMP.currentTime(time);
     });
