@@ -302,7 +302,7 @@ class Analytic {
 
       let browserAdjust = (window.navigator.userAgent.indexOf("Edge") > -1) ? 60 : 0;
 
-      let adjustedLeft = e.offsetX - leftOffset + browserAdjust;
+      let adjustedLeft = e.offsetX - leftOffset - browserAdjust;
 
       let domain = $(e.delegateTarget).find('.c3-zoom-rect').attr('width');
 
