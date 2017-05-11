@@ -306,7 +306,7 @@ class Analytic {
 
       let domain = $(e.delegateTarget).innerWidth() - leftOffset - paddingConst;
 
-      let percent = adjustedLeft / domain;
+      let percent = (adjustedLeft / domain) + .08;
       let time = ~~(this.AMP.duration() * percent);
 
       console.log(adjustedLeft, domain, percent, time);
