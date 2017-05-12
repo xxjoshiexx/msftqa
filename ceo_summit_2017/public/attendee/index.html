@@ -47,14 +47,22 @@
             <li class="tab-link active" data-tab="transcription_timeline">
               <i class="zmdi zmdi-translate hoverable hoverable-purple"></i>
             </li>
-            <li class="tab-link">
+            <li class="tab-link" data-tab="qa_comments">
               <i class="zmdi zmdi-comment-video hoverable hoverable-purple"></i>
             </li>
           </ul>
           <div class="tab-content">
+
             <div class="tab-content-container" id="yammer_comments">
               <div class="tab-content-content"></div>
             </div>
+
+            <div class="tab-content-container" id="qa_comments">
+              <div class="tab-content-content">
+                <h2 class="m-0">Q & A Comments</h2>
+              </div>
+            </div>
+
             <div class="tab-content-container active" id="transcription_timeline">
               <div class="tab-content-header">
                 <div class="search-transcript">
@@ -76,7 +84,6 @@
                 <button class="button button-block language-select-trigger">Cancel</button>
                 <button class="button button-block button-purple" id="language_select_confirm">Change Language</button>
               </div>
-
               <div class="tab-content-footer">
                 <table class="transcription-footer">
                   <tr>
@@ -90,7 +97,6 @@
                 </div>
               </div>
             </div>
-            <!-- End Transcription Tab -->
           </div>
         </div>
       </div>
@@ -98,6 +104,7 @@
     <script src= "//amp.azure.net/libs/amp/2.1.0/azuremediaplayer.min.js"></script>
     <script src="../js/comments.js"></script>
     <script src="../js/languages.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="../js/app.js"></script>
   </body>
 </html>

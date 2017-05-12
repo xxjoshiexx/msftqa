@@ -5694,6 +5694,9 @@ h1, h2, h3, h4, h5, h6 {
 h1 {
   font-size: 1.5em; }
 
+hr {
+  border-color: rgba(255, 255, 255, 0.5); }
+
 input {
   background: rgba(0, 0, 0, 0.4);
   border: none;
@@ -5812,6 +5815,23 @@ input {
   .attendee-view .container .container-right {
     left: -webkit-calc(100% - 350px);
     left: calc(100% - 350px); }
+
+.communicator-view {
+  background-color: #111112; }
+  .communicator-view .container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -150px;
+    width: 300px; }
+    .communicator-view .container textarea {
+      background: #222;
+      color: white;
+      border: none;
+      height: 100px; }
+      .communicator-view .container textarea:active, .communicator-view .container textarea:focus {
+        background: rgba(255, 255, 255, 0.5); }
 
 .index-view {
   background-color: #111112; }
@@ -6118,7 +6138,7 @@ ul.selection-group {
       height: 45px;
       position: absolute;
       width: 100%; }
-    .tab-container .tab-content-container#yammer_comments .tab-content-content {
+    .tab-container .tab-content-container#yammer_comments .tab-content-content, .tab-container .tab-content-container#qa_comments .tab-content-content {
       bottom: 0;
       top: 0; }
   .tab-container ul.tab-nav {

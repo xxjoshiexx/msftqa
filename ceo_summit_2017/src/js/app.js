@@ -1,6 +1,5 @@
 import 'babel-polyfill';
 import $ from 'jquery';
-//import * as d3 from 'd3';
 
 import Comment from '../templates/comment.handlebars';
 import Speaker from '../templates/speaker.handlebars';
@@ -20,6 +19,10 @@ class Attendee {
         search: $('#language_selection_search'),
         selectionGroup: $('#language_selection_group'),
         trigger: $('.language-select-trigger'),
+      },
+      qaComments: {
+        _self: $('#qa_comments'),
+        content: $('#qa_comments .tab-content-content')
       },
       tabLink: $('.tab-link'),
       transcriptionTimeline: {
@@ -129,6 +132,47 @@ class Attendee {
   }
 
   init() {
+    // TODO: Abstract
+    console.log('Communicator init...');
+
+    let conn = io();
+
+    conn.on('connect', () => {
+      console.log('Connection initiated...');
+
+      conn.on('status:update', (data) => {
+        let { msg } = data;
+        console.log(msg);
+      });
+
+      conn.on('message:display', (data) => {
+        console.log(data);
+        let { msg } = data;
+        console.log(`Display message: ${msg}`);
+
+        let commentNode = Comment({
+          avatarSrc: '../images/avatars/EnricoC.jpg',
+          name: 'Enrico Cattaneo',
+          comment: msg
+        });
+
+        console.log(commentNode);
+
+        let $c = $(commentNode);
+        this.DOM.qaComments.content.append($c);
+
+        setTimeout(() => {
+          $c.addClass('visible');
+          conn.emit('message:displayed', {
+            msg: `Successfully displayed "${msg}"`
+          });
+        }, 100);
+      });
+
+
+
+    });
+
     this.DOM.languageSelect.confirm.click(() => {
       this
         .handleLanguageConfirm()
@@ -540,6 +584,37 @@ class Analytic {
   }
 }
 
+class Communicator {
+  constructor() {
+    this.DOM = {
+      message: $('#message'),
+      sendMessage: $('#send_message'),
+      status: $('#status')
+    }
+  }
+
+  init() {
+    console.log('Communicator init...');
+
+    let conn = io();
+
+    conn.on('connect', () => {
+      console.log('Connection initiated...');
+    });
+
+    conn.on('status:update', (data) => {
+      let { msg } = data;
+      this.DOM.status.text(msg);
+    });
+
+    this.DOM.sendMessage.click(() => {
+      conn.emit('message:display', {
+        msg: this.DOM.message.val()
+      });
+    });
+  }
+}
+
 // Remeber no fat arrow
 ['click', 'mouseout', 'mouseover'].forEach(function(event) {
   $.fn[`d3${event}`] = function () {
@@ -558,5 +633,9 @@ $(document).ready(() => {
   if ($('body.analytics-view').length) {
     let analyticsView = new Analytic();
     analyticsView.init();
+  }
+  if ($('body.communicator-view').length) {
+    let communicatorView = new Communicator();
+    communicatorView.init();
   }
 });

@@ -19,6 +19,7 @@
   "dependencies": {
     "express": "^4.15.2",
     "express-basic-auth": "^1.0.2",
-    "serve-static": "^1.12.2"
+    "serve-static": "^1.12.2",
+    "socket.io": "^2.0.1"
   }
 }
