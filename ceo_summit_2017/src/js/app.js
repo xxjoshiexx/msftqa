@@ -153,7 +153,8 @@ class Attendee {
         let commentNode = Comment({
           avatarSrc: '../images/avatars/EnricoC.jpg',
           name: 'Enrico Cattaneo',
-          comment: msg
+          comment: msg,
+          timeString: 'TBD'
         });
 
         console.log(commentNode);
