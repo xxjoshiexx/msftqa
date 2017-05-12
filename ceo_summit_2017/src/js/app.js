@@ -154,7 +154,7 @@ class Attendee {
           avatarSrc: '../images/avatars/JaredS.jpg',
           name: 'Jared Spataro',
           comment: msg,
-          timeString: moment().format("h:m a")
+          timeString: moment().format("h:mm a")
         });
 
         let $c = $(commentNode);
@@ -167,9 +167,29 @@ class Attendee {
           });
         }, 100);
       });
+    });
 
+    let question1 = Comment({
+      avatarSrc: '../images/avatars/DiegoS.jpg',
+      name: 'Diego Siciliani',
+      comment: 'Where is this talk taking place? Looks neat!',
+      timeString: moment().format("h:mm a")
+    });
 
+    let question2 = Comment({
+      avatarSrc: '../images/avatars/AdeleV.jpg',
+      name: 'Adele Vance',
+      comment: 'Where is Satya originally from?',
+      timeString: moment().format("h:mm a")
+    });
 
+    [question1, question2].forEach((question) => {
+      let $q = $(question);
+      $q.addClass('visible');
+
+      setTimeout(() => {
+        this.DOM.qaComments.content.append($q);
+      }, 2000)
     });
 
     this.DOM.languageSelect.confirm.click(() => {
@@ -281,7 +301,7 @@ class Attendee {
     millisecondMark = seconds * 1000;
 
     if (millisecondMark <= time * 1000) {
-      target.timeString = moment().format("h:m a");
+      target.timeString = moment().format("h:mm a");
 
       let commentNode = Comment(target);
       let $c = $(commentNode);
