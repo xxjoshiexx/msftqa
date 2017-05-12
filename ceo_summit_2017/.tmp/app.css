@@ -6029,7 +6029,8 @@ input {
     color: rgba(255, 255, 255, 0.9);
     margin: 0; }
   .comment .comment-time {
-    color: rgba(255, 255, 255, 0.9); }
+    color: rgba(255, 255, 255, 0.9);
+    text-align: right; }
 
 ul.emoji-select {
   list-style-type: none;
@@ -6140,7 +6141,12 @@ ul.selection-group {
       height: 45px;
       position: absolute;
       width: 100%; }
-    .tab-container .tab-content-container#yammer_comments .tab-content-content, .tab-container .tab-content-container#qa_comments .tab-content-content {
+    .tab-container .tab-content-container#qa_comments .tab-content-content {
+      bottom: 90px;
+      top: 0; }
+    .tab-container .tab-content-container#qa_comments .tab-content-footer {
+      height: 90px; }
+    .tab-container .tab-content-container#yammer_comments .tab-content-content {
       bottom: 0;
       top: 0; }
   .tab-container ul.tab-nav {

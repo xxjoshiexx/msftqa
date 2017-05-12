@@ -510,6 +510,7 @@ input {
 
   .comment-time {
     color: $white;
+    text-align: right;
   }
 }
 
@@ -680,7 +681,17 @@ ul.selection-group {
       width: 100%;
     }
 
-    &#yammer_comments, &#qa_comments {
+    &#qa_comments {
+      .tab-content-content {
+        bottom: $tabContentFooterHeight * 2;
+        top: 0;
+      }
+      .tab-content-footer {
+        height: $tabContentFooterHeight * 2;
+      }
+    }
+
+    &#yammer_comments {
       .tab-content-content {
         bottom: 0;
         top: 0;

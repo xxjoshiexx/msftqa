@@ -1,5 +1,6 @@
 import 'babel-polyfill';
 import $ from 'jquery';
+import moment from 'moment';
 
 import Comment from '../templates/comment.handlebars';
 import Speaker from '../templates/speaker.handlebars';
@@ -150,10 +151,10 @@ class Attendee {
         console.log(`Display message: ${msg}`);
 
         let commentNode = Comment({
-          avatarSrc: '../images/avatars/EnricoC.jpg',
-          name: 'Enrico Cattaneo',
+          avatarSrc: '../images/avatars/JaredS.jpg',
+          name: 'Jared Spataro',
           comment: msg,
-          timeString: 'TBD'
+          timeString: moment().format("h:m a")
         });
 
         let $c = $(commentNode);
@@ -280,6 +281,8 @@ class Attendee {
     millisecondMark = seconds * 1000;
 
     if (millisecondMark <= time * 1000) {
+      target.timeString = moment().format("h:m a");
+
       let commentNode = Comment(target);
       let $c = $(commentNode);
 
