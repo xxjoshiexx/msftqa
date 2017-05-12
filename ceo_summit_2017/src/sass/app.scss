@@ -485,6 +485,10 @@ input {
   td {
     padding: $paddingBase;
     vertical-align: top;
+
+    &.comment-cell {
+      width: 100%;
+    }
   }
 
   .comment-avatar {

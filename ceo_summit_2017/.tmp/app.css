@@ -6015,6 +6015,8 @@ input {
   .comment td {
     padding: 7px;
     vertical-align: top; }
+    .comment td.comment-cell {
+      width: 100%; }
   .comment .comment-avatar {
     border: 2px solid rgba(255, 255, 255, 0.5);
     height: 35px;
