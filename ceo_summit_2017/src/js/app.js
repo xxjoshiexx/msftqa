@@ -146,7 +146,6 @@ class Attendee {
       });
 
       conn.on('message:display', (data) => {
-        console.log(data);
         let { msg } = data;
         console.log(`Display message: ${msg}`);
 
@@ -156,8 +155,6 @@ class Attendee {
           comment: msg,
           timeString: 'TBD'
         });
-
-        console.log(commentNode);
 
         let $c = $(commentNode);
         this.DOM.qaComments.content.append($c);
