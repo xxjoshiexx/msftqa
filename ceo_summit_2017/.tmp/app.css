@@ -6148,7 +6148,7 @@ ul.selection-group {
       height: 90px; }
     .tab-container .tab-content-container#yammer_comments .tab-content-content {
       bottom: 0;
-      top: 0; }
+      top: 45px; }
   .tab-container ul.tab-nav {
     height: 35px;
     list-style-type: none;
