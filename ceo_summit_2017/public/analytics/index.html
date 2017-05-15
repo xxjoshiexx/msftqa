@@ -6,7 +6,6 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>CEO Summit 2017 | Analytics</title>
-    <link href="//amp.azure.net/libs/amp/2.1.0/skins/amp-default/azuremediaplayer.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../css/app.css">
   </head>
   <body class="analytics-view">
@@ -59,8 +58,8 @@
       </div>
       <div class="container-left">
         <div class="top">
-          <video class="azuremediaplaery amp-default-skin" id="video" autoplay controls width="100%" height="100%">
-            <source src="https://msstream.streaming.mediaservices.windows.net/7e18fdf3-4978-4f51-ab41-2aeba9694c5d/CEO%20Town%20Hall.ism/manifest" type="application/vnd.ms-sstr+xml" />
+            <video class="azuremediaplayer amp-stream-skin amp-big-play-centered" id="azuremediaplayer" height="100%" width="100%">
+            <div>Time update: <span id="time"></span></div>
             <p class="amp-no-js">
                 To view this video please enable JavaScript, and consider upgrading to a web browser that supports HTML5 video
             </p>
@@ -121,7 +120,8 @@
           <div class="playhead"></div>
       </div>
     </div>
-    <script src= "//amp.azure.net/libs/amp/2.1.0/azuremediaplayer.min.js"></script>
+    <script src="https://amp.azure.net/libs/amp/2.0.0/azuremediaplayer.min.js"></script>
+    <script src="../js/player-skin.js"></script>
     <script src="../js/d3.min.js"></script>
     <script src="../js/c3.min.js"></script>
     <script src="../js/retention.js"></script>

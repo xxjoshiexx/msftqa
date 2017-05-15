@@ -237,7 +237,11 @@ class Attendee {
   }
 
   renderMediaPlayer() {
-    let media = amp('video');
+    let media = amp('azuremediaplayer', {
+      autoplay: true,
+      controls: true,
+      poster: ""
+    });
 
     media.src([{
       src: "https://msstream.streaming.mediaservices.windows.net/7e18fdf3-4978-4f51-ab41-2aeba9694c5d/CEO%20Town%20Hall.ism/manifest",
@@ -526,8 +530,10 @@ class Analytic {
   }
 
   renderMediaPlayer() {
-    let media = amp('video', {
-      autoplay: false
+    let media = amp('azuremediaplayer', {
+      autoplay: false,
+      controls: true,
+      poster: ""
     });
 
     media.src([{

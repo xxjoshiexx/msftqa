@@ -1,6 +1,7 @@
 @import "../vendor/normalize";
 @import "../vendor/c3";
 @import "../vendor/md-font";
+@import "../vendor/player-skin";
 
 // ********** Variables **********
 
@@ -220,6 +221,7 @@ input {
       .top {
         height: 45px;
         padding: 9px 14px;
+        z-index: 1;
       }
 
       .bottom {
@@ -278,6 +280,37 @@ input {
 // AMP
 
 .azuremediaplaery {
+
+  &.amp-stream-skin .vjs-loading-spinner {
+    background: url('../images/stream-theme/streamloading.png');
+    width: 170px;
+    height: 75px;
+    animation: loading 1.5s steps(48) infinite;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+  }
+
+  &.amp-stream-skin .vjs-loading-spinner:before {
+      content: none;
+  }
+
+  @keyframes loading {
+    100% {
+      background-position: -8160px;
+    }
+  }
+
+  &.amp-stream-skin .amp-logo {
+    display: none;
+  }
+
+  &.amp-stream-skin .amp-logo > div, .amp-stream-skin .amp-logo > span {
+    background-image: none;
+  }
 
   .amp-content-title {
     display: none;
