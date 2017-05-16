@@ -455,24 +455,24 @@ class Analytic {
         name: 'Satya Nadella'
       },
       {
-        avatarSrc: '../images/amy.png',
+        avatarSrc: '../images/avatars/ChristieC.jpg',
         blocks: [
           {
             duration: width * .14,
             start: width * .66
           }
         ],
-        name: 'Amy Hood'
+        name: 'Christie Cline'
       },
       {
-        avatarSrc: '../images/chris.png',
+        avatarSrc: '../images/avatars/NestorW.jpg',
         blocks: [
           {
             duration: width * .1,
             start: width * .8
           }
         ],
-        name: 'Chris Capossela'
+        name: 'Nestor Wilke'
       }
     ];
 
@@ -495,8 +495,8 @@ class Analytic {
           type: 'category'
         },
         y: {
-          // NOTE: This just fixes the -20 offset
-          min: 20
+          // NOTE: This just fixes the -2000 offset
+          min: 2000
         }
       },
       bindto: '#viz_engagement',
