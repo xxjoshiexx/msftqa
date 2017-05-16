@@ -7758,10 +7758,10 @@ input {
 .c3 .c3-legend-item text {
   fill: rgba(255, 255, 255, 0.5); }
 
-.c3 .c3-target.c3-target-angry .c3-circle {
+.c3 .c3-target.c3-target-sad .c3-circle {
   fill: #FDB813 !important; }
 
-.c3 .c3-target.c3-target-angry .c3-line {
+.c3 .c3-target.c3-target-sad .c3-line {
   stroke: #FDB813 !important; }
 
 .c3 .c3-target.c3-target-applause .c3-circle {
@@ -7798,9 +7798,9 @@ input {
     .c3 .c3-tooltip tr[class^="c3-tooltip-name"] td.name span {
       border-radius: 20px;
       margin-right: 20px; }
-    .c3 .c3-tooltip tr.c3-tooltip-name--angry td.name span {
+    .c3 .c3-tooltip tr.c3-tooltip-name--sad td.name span {
       background: #FDB813 !important; }
-      .c3 .c3-tooltip tr.c3-tooltip-name--angry td.name span:after {
+      .c3 .c3-tooltip tr.c3-tooltip-name--sad td.name span:after {
         background: transparent url("../images/sad.png") no-repeat;
         background-size: contain;
         content: "";
@@ -8100,7 +8100,7 @@ ul.selection-group {
       width: 100%; }
       .viz-filters .viz-filter .viz-filter-image-container img.viz-filter-image {
         width: 40px; }
-    .viz-filters .viz-filter[data-filter="angry"] .viz-filter-swatch {
+    .viz-filters .viz-filter[data-filter="sad"] .viz-filter-swatch {
       background: #FDB813; }
     .viz-filters .viz-filter[data-filter="applause"] .viz-filter-swatch {
       background: #b9fd75; }

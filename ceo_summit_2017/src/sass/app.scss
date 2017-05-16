@@ -8,7 +8,7 @@
 // Colors
 
 $black: #222;
-$c_angry: #FDB813;
+$c_sad: #FDB813;
 $c_applause: #b9fd75;
 $c_dislike: #FF8C00;
 $c_like: #575DA9;
@@ -414,7 +414,7 @@ input {
   }
 
   .c3-target {
-    &.c3-target-angry { @include lineColor($c_angry); }
+    &.c3-target-sad { @include lineColor($c_sad); }
     &.c3-target-applause { @include lineColor($c_applause); }
     &.c3-target-dislike { @include lineColor($c_dislike); }
     &.c3-target-like { @include lineColor($c_like); }
@@ -434,8 +434,8 @@ input {
         margin-right: 20px;
       }
 
-      &.c3-tooltip-name--angry td.name span {
-        background: $c_angry !important;
+      &.c3-tooltip-name--sad td.name span {
+        background: $c_sad !important;
         &:after {
           background: transparent url('../images/sad.png') no-repeat;
           @include iconLabel();
@@ -872,7 +872,7 @@ ul.selection-group {
       }
     }
 
-    &[data-filter="angry"] .viz-filter-swatch { background: #FDB813; }
+    &[data-filter="sad"] .viz-filter-swatch { background: #FDB813; }
     &[data-filter="applause"] .viz-filter-swatch { background: #b9fd75; }
     &[data-filter="dislike"] .viz-filter-swatch { background: #FF8C00; }
     &[data-filter="like"] .viz-filter-swatch { background: #575DA9; }
