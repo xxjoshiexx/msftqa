@@ -8,7 +8,7 @@ const server = require('http').Server(app);
 const socket = require('socket.io')(server);
 
 app.use(basicAuth({
-  challenge: false,
+  challenge: true,
   users: { 'admin': 'town!Hall365' }
 }));
 app.use(serveStatic(path.join(__dirname, 'ceo_summit_2017/public')));
