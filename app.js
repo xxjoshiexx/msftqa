@@ -7,10 +7,10 @@ const app = express();
 const server = require('http').Server(app);
 const socket = require('socket.io')(server);
 
-app.use(basicAuth({
-  challenge: true,
-  users: { 'admin': 'town!Hall365' }
-}));
+//app.use(basicAuth({
+//  challenge: true,
+//  users: { 'admin': 'town!Hall365' }
+//}));
 app.use(serveStatic(path.join(__dirname, 'ceo_summit_2017/public')));
 
 let port = process.env.PORT || 1337;
