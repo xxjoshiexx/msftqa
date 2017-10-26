@@ -1,7 +1,7 @@
 var comments = [
   {
-    avatarSrc: '../images/avatars/JoniS.jpg',
-    name: 'Joni Sherman',
+    avatarSrc: '../images/avatars/AlexW.jpg',
+    name: 'Alex Wilber',
     comment: 'So proud to work for a company with such high standards and integrity!',
     timeString: '00:22'
   },
@@ -12,15 +12,15 @@ var comments = [
     timeString: '00:28'
   },
   {
-    avatarSrc: '../images/avatars/IrvinS.jpg',
-    name: 'Irvin Sayers',
-    comment: 'Thank you for taking the time to address the Microsoft Community.',
+    avatarSrc: '../images/avatars/LeeG.jpg',
+    name: 'Lee Gu',
+    comment: 'Thank you for taking the time to address the Contoso Community.',
     timeString: '00:35'
   },
   {
     avatarSrc: '../images/avatars/EmilyB.jpg',
     name: 'Emily Braun',
-    comment: 'A constructive recommendation to help people in need.',
+    comment: 'A constructive recommendation to help the company grow.',
     timeString: '00:40'
   },
   {
@@ -38,7 +38,7 @@ var comments = [
   {
     avatarSrc: '../images/avatars/AlexW.jpg',
     name: 'Alex Wilber',
-    comment: 'Thanks Satya for stepping up and have a great human perspective.',
+    comment: 'Thanks Patti for stepping up and having a great human perspective.',
     timeString: '01:05'
   },
   {
@@ -48,15 +48,15 @@ var comments = [
     timeString: '01:14'
   },
   {
-    avatarSrc: '../images/avatars/PattiF.jpg',
-    name: 'Patti Fernandez',
-    comment: 'Awesome to see so much generosity from the individuals within our company.',
+    avatarSrc: '../images/avatars/DebraB.jpg',
+    name: 'Debra Berger',
+    comment: 'Awesome to see so much creativity from the individuals within our company.',
     timeString: '01:20'
   },
   {
     avatarSrc: '../images/avatars/LeeG.jpg',
     name: 'Lee Gu',
-    comment: 'Thank you to the employees at Microsoft for their statement and questions.',
+    comment: 'Thank you to the employees at Contoso for their statements and questions.',
     timeString: '01:25'
   },
 ];
