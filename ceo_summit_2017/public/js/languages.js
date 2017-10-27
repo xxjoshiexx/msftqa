@@ -53,7 +53,7 @@
 {"end":"00:01:50.3700000","start":"00:01:56.7700000","text":"expertise and appreciate our unique advantage."},
 {"end":"00:01:56.8300000","start":"00:01:59.3700000","text":"although these consumers"},
 {"end":"00:01:59.7700000","start":"00:02:04.8300000","text":"are the foundation of our business and loyal customers that continue"},
-{"end":"00:02:04.8500000","start":"00:02:08.7700000","text":"to be invested in our future products, we have to"},
+{"end":"00:02:04.8500000","start":"00:02:08.4000000","text":"to be invested in our future products, we have to"},
 {"end":"02:13.20","start":"02:08.50","text":"think bigger, to expand into new markets and"},
 {"end":"02:18.9","start":"02:13.2","text":"drive that growth and in order to move the business forward."},
 {"end":"02:23.1","start":"02:18.9","text":"And, address the needs of an expanded set of consumers we"},
