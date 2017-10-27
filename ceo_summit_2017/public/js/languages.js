@@ -27,7 +27,7 @@
 {"end":"00:01:59.7700000","start":"00:02:04.8300000","text":"是我们的业务和忠实客户的基础, 继续"},
 {"end":"00:02:04.8500000","start":"00:02:08.7700000","text":"投资于我们未来的产品。 我们必须"}],
 
-  "english":[{"end":"00:09.6","start":"00:05.6","text":"Thank you so much for coming today. I'm thrilled to have"},
+  "english":[{"end":"00:09.60","start":"00:05.60","text":"Thank you so much for coming today. I'm thrilled to have"},
 {"end":"00:13.2","start":"00:09.6","text":"the opportunity to address all of you our valued employees."},
 {"end":"00:18.7","start":"00:14.4","text":"Without you Contoso would not continue to flourish. And each"},
 {"end":"00:22.5","start":"00:18.7","text":"of you is a critical part of what is making Contoso"},
